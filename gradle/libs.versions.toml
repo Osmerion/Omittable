@@ -1,0 +1,13 @@
+[versions]
+kotlinx-serialization = "1.9.0"
+
+
+[libraries]
+# com.fasterxml.jackson.core:jackson-databind - Jackson Databind
+# https://github.com/FasterXML/jackson-databind
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version = "2.19.1" }
+
+# org.jetbrains.kotlinx:kotlinx-serialization-[...] - kotlinx.serialization
+# https://github.com/Kotlin/kotlinx.serialization
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }

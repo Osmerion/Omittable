@@ -1,0 +1,37 @@
+[versions]
+binary-compatibility-validator = "0.18.0"
+dokka = "2.0.0"
+junit = "5.13.1"
+kotlin = "2.2.0"
+
+
+[libraries]
+# org.assertj - AssertJ
+# https://github.com/assertj/assertj
+assertj-core = { module = "org.assertj:assertj-core", version = "3.27.3" }
+
+# org.jetbrains.kotlin - Kotlin
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin" }
+
+# org.junit - JUnit
+# https://github.com/junit-team/junit5
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+
+
+[plugins]
+# org.jetbrains.dokka - Dokka Gradle Plugin
+# https://github.com/Kotlin/dokka
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+dokka-javadoc = { id = "org.jetbrains.dokka-javadoc", version.ref = "dokka" }
+
+# org.jetbrains.kotlinx.binary-compatibility-validator - binary-compatibility-validator
+# https://github.com/Kotlin/binary-compatibility-validator
+binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-compatibility-validator" }
+
+# org.jetbrains.kotlin - Kotlin Gradle plugin
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
