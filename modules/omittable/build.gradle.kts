@@ -59,15 +59,10 @@ kotlin {
         }
 
         compilations {
-            configureEach {
-                compileJavaTaskProvider!!.configure {
-                    options.release = 17
-                }
-            }
-
             named("main") {
                 compileJavaTaskProvider!!.configure {
                     options.javaModuleVersion = "$version"
+                    options.release = 17
 
                     options.compilerArgumentProviders += object : CommandLineArgumentProvider {
 
@@ -80,6 +75,19 @@ kotlin {
                             "com.osmerion.omittable=${kotlinClasses.get().asFile.absolutePath}"
                         )
 
+                    }
+                }
+            }
+
+            named("test") {
+                compileJavaTaskProvider!!.configure {
+                    options.release = 21
+                }
+
+                compileTaskProvider.configure {
+                    compilerOptions {
+                        jvmTarget = JvmTarget.JVM_21
+                        freeCompilerArgs.set(listOf("-Xjdk-release=21"))
                     }
                 }
             }

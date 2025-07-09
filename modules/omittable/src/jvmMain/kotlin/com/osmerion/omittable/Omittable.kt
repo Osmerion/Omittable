@@ -29,7 +29,7 @@ public actual typealias PlatformRunnable = Runnable
 public actual typealias PlatformSupplier<T> = Supplier<T>
 
 @Serializable(with = OmittableSerializer::class)
-public actual sealed class Omittable<T> {
+public actual sealed interface Omittable<T> {
 
     public actual companion object {
 
@@ -42,27 +42,27 @@ public actual sealed class Omittable<T> {
 
     }
 
-    public actual abstract fun getOrThrow(): T
+    public actual fun getOrThrow(): T
 
-    public actual abstract fun isAbsent(): Boolean
-    public actual abstract fun isPresent(): Boolean
+    public actual fun isAbsent(): Boolean
+    public actual fun isPresent(): Boolean
 
-    public actual abstract fun ifPresent(action: PlatformConsumer<T>)
-    public actual abstract fun ifPresentOrElse(action: PlatformConsumer<T>, absentAction: PlatformRunnable)
+    public actual fun ifPresent(action: PlatformConsumer<T>)
+    public actual fun ifPresentOrElse(action: PlatformConsumer<T>, absentAction: PlatformRunnable)
 
-    public actual abstract fun filter(predicate: PlatformFunction<T, Boolean>): Omittable<T>
-    public actual abstract fun <U> map(mapper: PlatformFunction<T, U>): Omittable<U>
-    public actual abstract fun <U> flatMap(mapper: PlatformFunction<T, Omittable<U>>): Omittable<U>
-    public actual abstract fun or(supplier: PlatformSupplier<Omittable<T>>): Omittable<T>
+    public actual fun filter(predicate: PlatformFunction<T, Boolean>): Omittable<T>
+    public actual fun <U> map(mapper: PlatformFunction<T, U>): Omittable<U>
+    public actual fun <U> flatMap(mapper: PlatformFunction<T, Omittable<U>>): Omittable<U>
+    public actual fun or(supplier: PlatformSupplier<Omittable<T>>): Omittable<T>
 
     /**
      * If a value is present, returns a [Stream] containing only that value, otherwise returns an empty [Stream].
      *
      * @since   0.1.0
      */
-    public abstract fun stream(): Stream<T>
+    public fun stream(): Stream<T>
 
-    internal actual object Absent : Omittable<Any>() {
+    public actual object Absent : Omittable<Any> {
 
         actual override fun getOrThrow(): Any = throw NoSuchElementException("No value present")
 
@@ -93,7 +93,8 @@ public actual sealed class Omittable<T> {
 
     }
 
-    public actual class Present<T> internal constructor(private val value: T) : Omittable<T>() {
+    @JvmRecord
+    public actual data class Present<T> public constructor(public actual val value: T) : Omittable<T> {
 
         public actual override fun getOrThrow(): T = value
 

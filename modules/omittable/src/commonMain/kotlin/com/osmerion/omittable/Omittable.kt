@@ -2,6 +2,7 @@ package com.osmerion.omittable
 
 import com.osmerion.omittable.internal.kotlinx.serialization.OmittableSerializer
 import kotlinx.serialization.Serializable
+import kotlin.jvm.JvmRecord
 
 public expect fun interface PlatformConsumer<T> {
     public fun accept(t: T)
@@ -27,7 +28,7 @@ public expect fun interface PlatformSupplier<T> {
  * @author  Leon Linhart
  */
 @Serializable(with = OmittableSerializer::class)
-public expect sealed class Omittable<T>() {
+public expect sealed interface Omittable<T> {
 
     public companion object {
 
@@ -59,21 +60,21 @@ public expect sealed class Omittable<T>() {
      *
      * @since   0.1.0
      */
-    public abstract fun getOrThrow(): T
+    public fun getOrThrow(): T
 
     /**
      * Returns `true` if no value is present, or `false` otherwise.
      *
      * @since   0.1.0
      */
-    public abstract fun isAbsent(): Boolean
+    public fun isAbsent(): Boolean
 
     /**
      * Returns `true` if a value is present, or `false` otherwise.
      *
      * @since   0.1.0
      */
-    public abstract fun isPresent(): Boolean
+    public fun isPresent(): Boolean
 
     /**
      * If a value is present, performs the given action with the value, otherwise does nothing.
@@ -82,7 +83,7 @@ public expect sealed class Omittable<T>() {
      *
      * @since   0.1.0
      */
-    public abstract fun ifPresent(action: PlatformConsumer<T>)
+    public fun ifPresent(action: PlatformConsumer<T>)
 
     /**
      * If a value is present, performs the given action with the value, otherwise performs the given absent action.
@@ -92,10 +93,7 @@ public expect sealed class Omittable<T>() {
      *
      * @since   0.1.0
      */
-    public abstract fun ifPresentOrElse(
-        action: PlatformConsumer<T>,
-        absentAction: PlatformRunnable
-    )
+    public fun ifPresentOrElse(action: PlatformConsumer<T>, absentAction: PlatformRunnable)
 
     /**
      * If a value is present, returns an [Omittable] containing that value if it matches the given predicate, otherwise
@@ -105,7 +103,7 @@ public expect sealed class Omittable<T>() {
      *
      * @since   0.1.0
      */
-    public abstract fun filter(predicate: PlatformFunction<T, Boolean>): Omittable<T>
+    public fun filter(predicate: PlatformFunction<T, Boolean>): Omittable<T>
 
     /**
      * If a value is present, returns an [Omittable] containing the result of applying the given mapping function
@@ -116,7 +114,7 @@ public expect sealed class Omittable<T>() {
      *
      * @since   0.1.0
      */
-    public abstract fun <U> map(mapper: PlatformFunction<T, U>): Omittable<U>
+    public fun <U> map(mapper: PlatformFunction<T, U>): Omittable<U>
 
     /**
      * If a value is present, returns an [Omittable] containing the result of applying the given mapping function to the
@@ -127,7 +125,7 @@ public expect sealed class Omittable<T>() {
      *
      * @since   0.1.0
      */
-    public abstract fun <U> flatMap(mapper: PlatformFunction<T, Omittable<U>>): Omittable<U>
+    public fun <U> flatMap(mapper: PlatformFunction<T, Omittable<U>>): Omittable<U>
 
     /**
      * If a value is present, returns an [Omittable] containing that value, otherwise returns an [Omittable] produced by
@@ -137,9 +135,9 @@ public expect sealed class Omittable<T>() {
      * 
      * @since   0.1.0
      */
-    public abstract fun or(supplier: PlatformSupplier<Omittable<T>>): Omittable<T>
+    public fun or(supplier: PlatformSupplier<Omittable<T>>): Omittable<T>
 
-    internal object Absent : Omittable<Any> {
+    public object Absent : Omittable<Any> {
 
         override fun getOrThrow(): Any
 
@@ -162,6 +160,8 @@ public expect sealed class Omittable<T>() {
      * @since   0.1.0
      */
     public class Present<T> : Omittable<T> {
+
+        public val value: T
 
         override fun getOrThrow(): T
 

@@ -17,6 +17,7 @@ package com.osmerion.omittable
 
 import com.osmerion.omittable.internal.kotlinx.serialization.OmittableSerializer
 import kotlinx.serialization.Serializable
+import kotlin.jvm.JvmRecord
 import kotlin.jvm.JvmStatic
 
 public actual fun interface PlatformConsumer<T> {
@@ -36,7 +37,7 @@ public actual fun interface PlatformSupplier<T> {
 }
 
 @Serializable(with = OmittableSerializer::class)
-public actual sealed class Omittable<T> {
+public actual sealed interface Omittable<T> {
 
     public actual companion object {
 
@@ -49,20 +50,20 @@ public actual sealed class Omittable<T> {
 
     }
 
-    public actual abstract fun getOrThrow(): T
+    public actual fun getOrThrow(): T
 
-    public actual abstract fun isAbsent(): Boolean
-    public actual abstract fun isPresent(): Boolean
+    public actual fun isAbsent(): Boolean
+    public actual fun isPresent(): Boolean
 
-    public actual abstract fun ifPresent(action: PlatformConsumer<T>)
-    public actual abstract fun ifPresentOrElse(action: PlatformConsumer<T>, absentAction: PlatformRunnable)
+    public actual fun ifPresent(action: PlatformConsumer<T>)
+    public actual fun ifPresentOrElse(action: PlatformConsumer<T>, absentAction: PlatformRunnable)
 
-    public actual abstract fun filter(predicate: PlatformFunction<T, Boolean>): Omittable<T>
-    public actual abstract fun <U> map(mapper: PlatformFunction<T, U>): Omittable<U>
-    public actual abstract fun <U> flatMap(mapper: PlatformFunction<T, Omittable<U>>): Omittable<U>
-    public actual abstract fun or(supplier: PlatformSupplier<Omittable<T>>): Omittable<T>
+    public actual fun filter(predicate: PlatformFunction<T, Boolean>): Omittable<T>
+    public actual fun <U> map(mapper: PlatformFunction<T, U>): Omittable<U>
+    public actual fun <U> flatMap(mapper: PlatformFunction<T, Omittable<U>>): Omittable<U>
+    public actual fun or(supplier: PlatformSupplier<Omittable<T>>): Omittable<T>
 
-    internal actual object Absent : Omittable<Any>() {
+    public actual object Absent : Omittable<Any> {
 
         actual override fun getOrThrow(): Any = throw NoSuchElementException("No value present")
 
@@ -90,7 +91,9 @@ public actual sealed class Omittable<T> {
 
     }
 
-    public actual class Present<T> internal constructor(private val value: T) : Omittable<T>() {
+    @JvmRecord
+    @ConsistentCopyVisibility
+    public actual data class Present<T> internal constructor(public actual val value: T) : Omittable<T> {
 
         public actual override fun getOrThrow(): T = value
 
