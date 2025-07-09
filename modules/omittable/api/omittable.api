@@ -1,6 +1,6 @@
-public abstract class com/osmerion/omittable/Omittable {
+public abstract interface class com/osmerion/omittable/Omittable {
 	public static final field Companion Lcom/osmerion/omittable/Omittable$Companion;
-	public static final fun absent ()Lcom/osmerion/omittable/Omittable;
+	public static fun absent ()Lcom/osmerion/omittable/Omittable;
 	public abstract fun filter (Ljava/util/function/Function;)Lcom/osmerion/omittable/Omittable;
 	public abstract fun flatMap (Ljava/util/function/Function;)Lcom/osmerion/omittable/Omittable;
 	public abstract fun getOrThrow ()Ljava/lang/Object;
@@ -9,18 +9,13 @@ public abstract class com/osmerion/omittable/Omittable {
 	public abstract fun isAbsent ()Z
 	public abstract fun isPresent ()Z
 	public abstract fun map (Ljava/util/function/Function;)Lcom/osmerion/omittable/Omittable;
-	public static final fun of (Ljava/lang/Object;)Lcom/osmerion/omittable/Omittable;
+	public static fun of (Ljava/lang/Object;)Lcom/osmerion/omittable/Omittable;
 	public abstract fun or (Ljava/util/function/Supplier;)Lcom/osmerion/omittable/Omittable;
 	public abstract fun stream ()Ljava/util/stream/Stream;
 }
 
-public final class com/osmerion/omittable/Omittable$Companion {
-	public final fun absent ()Lcom/osmerion/omittable/Omittable;
-	public final fun of (Ljava/lang/Object;)Lcom/osmerion/omittable/Omittable;
-	public final fun serializer (Lkotlinx/serialization/KSerializer;)Lkotlinx/serialization/KSerializer;
-}
-
-public final class com/osmerion/omittable/Omittable$Present : com/osmerion/omittable/Omittable {
+public final class com/osmerion/omittable/Omittable$Absent : com/osmerion/omittable/Omittable {
+	public static final field INSTANCE Lcom/osmerion/omittable/Omittable$Absent;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun filter (Ljava/util/function/Function;)Lcom/osmerion/omittable/Omittable;
 	public fun flatMap (Ljava/util/function/Function;)Lcom/osmerion/omittable/Omittable;
@@ -34,5 +29,32 @@ public final class com/osmerion/omittable/Omittable$Present : com/osmerion/omitt
 	public fun or (Ljava/util/function/Supplier;)Lcom/osmerion/omittable/Omittable;
 	public fun stream ()Ljava/util/stream/Stream;
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/osmerion/omittable/Omittable$Companion {
+	public final fun absent ()Lcom/osmerion/omittable/Omittable;
+	public final fun of (Ljava/lang/Object;)Lcom/osmerion/omittable/Omittable;
+	public final fun serializer (Lkotlinx/serialization/KSerializer;)Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/osmerion/omittable/Omittable$Present : java/lang/Record, com/osmerion/omittable/Omittable {
+	public fun <init> (Ljava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/Object;)Lcom/osmerion/omittable/Omittable$Present;
+	public static synthetic fun copy$default (Lcom/osmerion/omittable/Omittable$Present;Ljava/lang/Object;ILjava/lang/Object;)Lcom/osmerion/omittable/Omittable$Present;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun filter (Ljava/util/function/Function;)Lcom/osmerion/omittable/Omittable;
+	public fun flatMap (Ljava/util/function/Function;)Lcom/osmerion/omittable/Omittable;
+	public fun getOrThrow ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun ifPresent (Ljava/util/function/Consumer;)V
+	public fun ifPresentOrElse (Ljava/util/function/Consumer;Ljava/lang/Runnable;)V
+	public fun isAbsent ()Z
+	public fun isPresent ()Z
+	public fun map (Ljava/util/function/Function;)Lcom/osmerion/omittable/Omittable;
+	public fun or (Ljava/util/function/Supplier;)Lcom/osmerion/omittable/Omittable;
+	public fun stream ()Ljava/util/stream/Stream;
+	public fun toString ()Ljava/lang/String;
+	public final fun value ()Ljava/lang/Object;
 }
 
