@@ -54,14 +54,14 @@ kotlin {
 
     jvm {
         compilerOptions {
-            jvmTarget = JvmTarget.JVM_11
-            freeCompilerArgs.add("-Xjdk-release=11")
+            jvmTarget = JvmTarget.JVM_17
+            freeCompilerArgs.add("-Xjdk-release=17")
         }
 
         compilations {
             configureEach {
                 compileJavaTaskProvider!!.configure {
-                    options.release = 11
+                    options.release = 17
                 }
             }
 
@@ -202,7 +202,7 @@ dokka {
     dokkaSourceSets.configureEach {
         reportUndocumented = true
         skipEmptyPackages = true
-        jdkVersion = 11
+        jdkVersion = 17
 
         val localKotlinSourceDir = layout.projectDirectory.dir("src/$name/kotlin")
         val version = project.version

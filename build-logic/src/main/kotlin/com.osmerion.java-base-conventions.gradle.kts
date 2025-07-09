@@ -10,7 +10,7 @@ java {
 
 tasks {
     withType<JavaCompile>().configureEach {
-        options.release = 11
+        options.release = 17
     }
 
     withType<Jar>().configureEach {

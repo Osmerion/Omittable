@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-yellowgreen.svg?style=for-the-badge&label=License)](https://github.com/Osmerion/Omittable/blob/master/LICENSE)
 [![Maven Central](https://img.shields.io/maven-central/v/com.osmerion.omittable/omittable.svg?style=for-the-badge&label=Maven%20Central)](https://maven-badges.herokuapp.com/maven-central/com.osmerion.omittable/omittable)
 ![Kotlin](https://img.shields.io/badge/Kotlin-2%2E2-green.svg?style=for-the-badge&color=a97bff&logo=Kotlin)
-![Java](https://img.shields.io/badge/Java-11-green.svg?style=for-the-badge&color=b07219&logo=Java)
+![Java](https://img.shields.io/badge/Java-17-green.svg?style=for-the-badge&color=b07219&logo=Java)
 
 A tiny Kotlin Multiplatform library that provides an Omittable type to be used
 in cases where an absence of a value is semantically different from a null
