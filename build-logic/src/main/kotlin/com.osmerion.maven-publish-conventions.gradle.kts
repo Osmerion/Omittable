@@ -22,7 +22,7 @@ publishing {
     publications.withType<MavenPublication>().configureEach {
         pom {
             name = project.name
-            description = "A tiny Kotlin Multiplatform library that provides an Omittable type to be used in cases where an absence of a value is semantically different from a null value."
+            description = "A tiny Kotlin Multiplatform library that provides an Omittable type to be used in cases where the absence of a value is semantically different from a null value."
             url = "https://github.com/Osmerion/Omittable"
 
             licenses {

@@ -6,7 +6,7 @@
 ![Java](https://img.shields.io/badge/Java-17-green.svg?style=for-the-badge&color=b07219&logo=Java)
 
 A tiny Kotlin Multiplatform library that provides an Omittable type to be used
-in cases where an absence of a value is semantically different from a null
+in cases where the absence of a value is semantically different from a null
 value.
 
 
