@@ -132,7 +132,7 @@ jobs:
         uses: TheMrMilchmann/merge-tarballs@master
         with:
           glob: artifacts/**
-          archive: ./artifact-bundle.zip
+          archive: ./artifact-bundle.tgz
 
       - name: Upload Artifact Bundle
         uses: actions/upload-artifact@v4
@@ -157,5 +157,5 @@ jobs:
         with:
           username: ${{ secrets.CENTRAL_PORTAL_USERNAME }}
           password: ${{ secrets.CENTRAL_PORTAL_PASSWORD }}
-          bundle: ./artifact-bundle.zip
+          bundle: ./artifact-bundle.tgz
           publishing-type: "USER_MANAGED"
