@@ -4,20 +4,83 @@ import com.osmerion.omittable.internal.kotlinx.serialization.OmittableSerializer
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmRecord
 
+/**
+ * A functional interface that accepts a single input argument and returns no result.
+ *
+ * @param T the type of the input to the operation
+ *
+ * @since   0.1.0
+ */
 public expect fun interface PlatformConsumer<T> {
+
+    /**
+     * Performs this operation on the given argument.
+     *
+     * @param t the input argument
+     *
+     * @since   0.1.0
+     */
     public fun accept(t: T)
+
 }
 
+/**
+ * A functional interface that accepts a single input argument and produces a result.
+ *
+ * @param T the type of the input to the function
+ * @param R the type of the result of the function
+ *
+ * @since   0.1.0
+ */
 public expect fun interface PlatformFunction<T, R> {
+
+    /**
+     * Applies this function to the given argument.
+     *
+     * @param t the input argument
+     *
+     * @return the function result
+     *
+     * @since   0.1.0
+     */
     public fun apply(t: T): R
+
 }
 
+/**
+ * A functional interface that represents a runnable action.
+ *
+ * @since   0.1.0
+ */
 public expect fun interface PlatformRunnable {
+
+    /**
+     * Performs this runnable action.
+     *
+     * @since   0.1.0
+     */
     public fun run()
+
 }
 
+/**
+ * A functional interface that supplies a value.
+ *
+ * @param T the type of the supplied value
+ *
+ * @since   0.1.0
+ */
 public expect fun interface PlatformSupplier<T> {
+
+    /**
+     * Returns a result.
+     *
+     * @return a result
+     *
+     * @since   0.1.0
+     */
     public fun get(): T
+
 }
 
 /**
@@ -30,6 +93,11 @@ public expect fun interface PlatformSupplier<T> {
 @Serializable(with = OmittableSerializer::class)
 public expect sealed interface Omittable<T> {
 
+    /**
+     * A companion object providing factory methods for creating [Omittable] instances.
+     *
+     * @since   0.1.0
+     */
     public companion object {
 
         /**
@@ -137,6 +205,11 @@ public expect sealed interface Omittable<T> {
      */
     public fun or(supplier: PlatformSupplier<Omittable<T>>): Omittable<T>
 
+    /**
+     * A sentinel [Omittable] instance which represents the absence of a value.
+     *
+     * @since   0.1.0
+     */
     public object Absent : Omittable<Any> {
 
         override fun getOrThrow(): Any
@@ -161,6 +234,11 @@ public expect sealed interface Omittable<T> {
      */
     public class Present<T> : Omittable<T> {
 
+        /**
+         * Returns the value contained in this [Omittable] instance.
+         *
+         * @since   0.1.0
+         */
         public val value: T
 
         override fun getOrThrow(): T
