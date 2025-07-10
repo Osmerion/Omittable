@@ -235,7 +235,9 @@ dokka {
 
     dokkaPublications.configureEach {
         moduleName = "Omittable"
-        failOnWarning = true
+
+        // TODO Enable this once there are fewer silly warnings for missing docs on inherited functions
+//        failOnWarning = true
     }
 }
 
