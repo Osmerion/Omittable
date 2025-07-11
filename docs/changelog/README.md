@@ -4,7 +4,7 @@
 
 ### Version History
 
-* ????-??-?? [0.1.0](0.1.0) (TBD; work in progress)
+* 2025-07-11 [0.1.0](0.1.0) (latest)
 
 
 This library is strictly following [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html).

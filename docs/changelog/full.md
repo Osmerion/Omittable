@@ -1,0 +1,52 @@
+### 0.1.0
+
+_Released 2025 Jul 11_
+
+#### Overview
+
+When developing RESTful APIs, it is often necessary to distinguish between
+absence of a value and a null value to properly support partial updates.
+
+Imaging a user profile with an integer ID, a name, and a birthday. Imagine a
+user wants to update their name, but not their birthday. This could be
+implemented by updating the entire profile:
+
+```sh
+curl -X PUT https://api.example.com/users/123 \
+    -H "Content-Type: application/json" \
+    -d '{
+        "name": "John Doe",
+        "birthday": "2005-07-11T10:34:47+00:00"
+    }'
+```
+
+In this case, the birthday is sent as well, even though it should not be
+changed. Not only this is inefficient, it also obscures the intent of the user
+which makes it harder for the server to authorize the request. This
+
+A more practical and scalable approach is to use partial updates:
+
+```sh
+curl -X PATCH https://api.example.com/users/123 \
+    -H "Content-Type: application/json" \
+    -d '{
+        "name": "John Doe"
+    }'
+```
+
+Here, the `birthday` field is omitted to indicate that the server should not
+change the birthday. Similarly, if the user wants to remove their birthday from
+their profile, they could explicitly set it to `null`:
+
+```sh
+curl -X PATCH https://api.example.com/users/123 \
+    -H "Content-Type: application/json" \
+    -d '{
+        "birthday": null
+    }'
+```
+
+While this is a common pattern that makes for a clean API, it is tricky to
+translate this into DTOs in most languages since there is typically no
+difference between `null` and the absence of a value. The `Omittable` type
+solves this by (re-)introducing a semantic distinction between the two.
