@@ -290,10 +290,8 @@ publishing {
                 // Set packaging to POM to indicate that there's no artifact:
                 root.appendNode("packaging", "pom")
 
-                // Remove the original platform dependencies and add a single dependency on the platform
-                // module:
-                val dependencies = (root.get("dependencies") as NodeList).first() as Node
-                dependencies.children().toList().forEach { dependencies.remove(it as Node) }
+                // Add a single dependency on the platform module:
+                val dependencies = root.appendNode("dependencies", NodeList())
                 val singleDependency = dependencies.appendNode("dependency")
                 singleDependency.appendNode("groupId", jvmPublication.groupId)
                 singleDependency.appendNode("artifactId", jvmPublication.artifactId)
