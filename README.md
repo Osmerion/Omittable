@@ -12,10 +12,10 @@ value.
 
 ## Why?
 
-When developing RESTful APIs, it is often necessary to distinguish between
-absence of a value and a null value to properly support partial updates.
+When developing RESTful APIs, it is often necessary to distinguish between the
+absence of a value and a null value to support partial updates properly.
 
-Imaging a user profile with an integer ID, a name, and a birthday. Imagine a
+Consider a user profile with an integer ID, a name, and a birthday. Imagine a
 user wants to update their name, but not their birthday. This could be
 implemented by updating the entire profile:
 
@@ -29,8 +29,8 @@ curl -X PUT https://api.example.com/users/123 \
 ```
 
 In this case, the birthday is sent as well, even though it should not be
-changed. Not only this is inefficient, it also obscures the intent of the user
-which makes it harder for the server to authorize the request. This 
+changed. Not only this is inefficient, but it also obscures the intent of the
+user which makes it harder for the server to authorize the request.
 
 A more practical and scalable approach is to use partial updates:
 
