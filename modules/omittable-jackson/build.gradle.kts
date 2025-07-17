@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 plugins {
+    alias(buildDeps.plugins.gradle.buildconfig)
     id("com.osmerion.java-base-conventions")
     id("com.osmerion.maven-publish-conventions")
     `java-library`
@@ -34,9 +35,22 @@ publishing {
     }
 }
 
+buildConfig {
+    packageName = "com.osmerion.omittable.jackson.internal"
+
+    buildConfigField("GROUP_ID", publishing.publications.named<MavenPublication>("mavenJava").map { it.groupId })
+    buildConfigField("ARTIFACT_ID", publishing.publications.named<MavenPublication>("mavenJava").map { it.artifactId })
+    buildConfigField("VERSION_MAJOR", version.toString().substringBefore('.').toInt())
+    buildConfigField("VERSION_MINOR", version.toString().substringAfter('.').substringBefore('.').toInt())
+    buildConfigField("VERSION_PATCH", version.toString().substringAfter('.').substringAfter('.').substringBefore('-').toInt())
+    buildConfigField("SNAPSHOT_INFO", version.toString().let { if (it.contains('-')) it.substringAfter('-') else null })
+}
+
 dependencies {
-    api(project(":omittable", configuration = "archives"))
+    api(project(":omittable", "archives"))
+    api(project(":omittable", "jvmRuntimeElements"))
     api(libs.jackson.databind)
+    api(libs.jspecify)
 
     testImplementation(project.dependencies.platform(buildDeps.junit.bom))
     testImplementation(buildDeps.assertj.core)

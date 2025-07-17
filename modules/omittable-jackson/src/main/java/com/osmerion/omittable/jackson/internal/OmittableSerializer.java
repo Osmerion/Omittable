@@ -23,10 +23,11 @@ import com.fasterxml.jackson.databind.ser.std.ReferenceTypeSerializer;
 import com.fasterxml.jackson.databind.type.ReferenceType;
 import com.fasterxml.jackson.databind.util.NameTransformer;
 import com.osmerion.omittable.Omittable;
+import org.jspecify.annotations.Nullable;
 
 public final class OmittableSerializer extends ReferenceTypeSerializer<Omittable<?>> {
 
-    public OmittableSerializer(ReferenceType fullType, boolean staticTyping, TypeSerializer vts, JsonSerializer<Object> ser) {
+    public OmittableSerializer(ReferenceType fullType, boolean staticTyping, @Nullable TypeSerializer vts, JsonSerializer<Object> ser) {
         super(fullType, staticTyping, vts, ser);
     }
 
@@ -65,7 +66,7 @@ public final class OmittableSerializer extends ReferenceTypeSerializer<Omittable
     }
 
     @Override
-    protected Object _getReferencedIfPresent(Omittable<?> value) {
+    protected @Nullable Object _getReferencedIfPresent(Omittable<?> value) {
         return value.isPresent() ? value.getOrThrow() : null;
     }
 

@@ -24,10 +24,8 @@ import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import com.fasterxml.jackson.databind.type.ReferenceType;
 import com.osmerion.omittable.Omittable;
-import com.osmerion.omittable.jackson.internal.OmittableBeanSerializerModifier;
-import com.osmerion.omittable.jackson.internal.OmittableDeserializer;
-import com.osmerion.omittable.jackson.internal.OmittableSerializer;
-import com.osmerion.omittable.jackson.internal.OmittableTypeModifier;
+import com.osmerion.omittable.jackson.internal.*;
+import org.jspecify.annotations.Nullable;
 
 public final class OmittableModule extends Module {
 
@@ -50,13 +48,20 @@ public final class OmittableModule extends Module {
 
     @Override
     public Version version() {
-        return new Version(1, 2, 3, null);
+        return new Version(
+            BuildConfig.VERSION_MAJOR,
+            BuildConfig.VERSION_MINOR,
+            BuildConfig.VERSION_PATCH,
+            BuildConfig.SNAPSHOT_INFO,
+            BuildConfig.GROUP_ID,
+            BuildConfig.ARTIFACT_ID
+        );
     }
 
     private static final class OmittableDeserializers extends Deserializers.Base {
 
         @Override
-        public JsonDeserializer<?> findReferenceDeserializer(
+        public @Nullable JsonDeserializer<?> findReferenceDeserializer(
             ReferenceType refType,
             DeserializationConfig config,
             BeanDescription beanDesc,
@@ -75,11 +80,11 @@ public final class OmittableModule extends Module {
     private static final class OmittableSerializers extends Serializers.Base {
 
         @Override
-        public JsonSerializer<?> findReferenceSerializer(
+        public @Nullable JsonSerializer<?> findReferenceSerializer(
             SerializationConfig config,
             ReferenceType refType,
             BeanDescription beanDesc,
-            TypeSerializer contentTypeSerializer,
+            @Nullable TypeSerializer contentTypeSerializer,
             JsonSerializer<Object> contentValueSerializer
         ) {
             Class<?> raw = refType.getRawClass();

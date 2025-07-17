@@ -23,12 +23,13 @@ import com.fasterxml.jackson.databind.deser.ValueInstantiator;
 import com.fasterxml.jackson.databind.deser.std.ReferenceTypeDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.osmerion.omittable.Omittable;
+import org.jspecify.annotations.Nullable;
 
 public final class OmittableDeserializer extends ReferenceTypeDeserializer<Omittable<?>> {
 
     public OmittableDeserializer(
         JavaType fullType,
-        ValueInstantiator inst,
+        @Nullable ValueInstantiator inst,
         TypeDeserializer typeDeser,
         JsonDeserializer<?> deser
     ) {
@@ -47,12 +48,12 @@ public final class OmittableDeserializer extends ReferenceTypeDeserializer<Omitt
 
     @Override
     public Object getEmptyValue(DeserializationContext ctxt) throws JsonMappingException {
-        return getNullValue(ctxt);
+        return this.getNullValue(ctxt);
     }
 
     @Override
     public Object getAbsentValue(DeserializationContext ctxt) throws JsonMappingException {
-        return getNullValue(ctxt);
+        return this.getNullValue(ctxt);
     }
 
     @Override
@@ -61,7 +62,7 @@ public final class OmittableDeserializer extends ReferenceTypeDeserializer<Omitt
     }
 
     @Override
-    public Object getReferenced(Omittable<?> reference) {
+    public @Nullable Object getReferenced(Omittable<?> reference) {
         return reference.isPresent() ? reference.getOrThrow() : null;
     }
 

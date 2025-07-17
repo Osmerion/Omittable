@@ -11,3 +11,7 @@ jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", ver
 # https://github.com/Kotlin/kotlinx.serialization
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+
+# org.jspecify - JSpecify
+# https://github.com/jspecify/jspecify
+jspecify = { module = "org.jspecify:jspecify", version = "1.0.0" }
