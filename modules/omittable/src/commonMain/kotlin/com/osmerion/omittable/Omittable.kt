@@ -105,6 +105,8 @@ public expect sealed interface Omittable<T> {
          *
          * @param T the type of the absent value
          *
+         * @return  an omittable that does not contain a value
+         *
          * @since   0.1.0
          */
         public fun <T> absent(): Omittable<T>
@@ -115,6 +117,8 @@ public expect sealed interface Omittable<T> {
          * @param T     the type of the value
          * @param value the value to be contained in the [Omittable] instance
          *
+         * @return  an omittable containing the specified value
+         *
          * @since   0.1.0
          */
         public fun <T> of(value: T): Omittable<T>
@@ -123,6 +127,8 @@ public expect sealed interface Omittable<T> {
 
     /**
      * Returns the value contained in this [Omittable] instance, if present.
+     *
+     * @return  the value described by this omittable
      *
      * @throws [NoSuchElementException] if no value is present
      *
@@ -133,12 +139,16 @@ public expect sealed interface Omittable<T> {
     /**
      * Returns `true` if no value is present, or `false` otherwise.
      *
+     * @return  `true` if no value is present, or `false` otherwise
+     *
      * @since   0.1.0
      */
     public fun isAbsent(): Boolean
 
     /**
      * Returns `true` if a value is present, or `false` otherwise.
+     *
+     * @return  `true` if a value is present, or `false` otherwise
      *
      * @since   0.1.0
      */
@@ -169,6 +179,9 @@ public expect sealed interface Omittable<T> {
      *
      * @param predicate the predicate to be applied to the value, if present
      *
+     * @return  an `Omittable` describing the value of this `Omittable`, if a value is present and the value matches the
+     *          given predicate, otherwise an absent `Omittable`
+     *
      * @since   0.1.0
      */
     public fun filter(predicate: PlatformFunction<T, Boolean>): Omittable<T>
@@ -179,6 +192,9 @@ public expect sealed interface Omittable<T> {
      *
      * @param U         the type of the value contained in the resulting [Omittable]
      * @param mapper    the mapping function to be applied to the value if present
+     *
+     * @return  an `Omittable` describing the result of applying a mapping function to the value of this `Omittable`, if
+     *          a value is present, otherwise an absent `Omittable`
      *
      * @since   0.1.0
      */
@@ -191,6 +207,9 @@ public expect sealed interface Omittable<T> {
      * @param U         the type of the value contained in the resulting [Omittable]
      * @param mapper    the mapping function to be applied to the value if present
      *
+     * @return  the result of applying an `Omittable`-bearing mapping function to the value of this `Omittable`, if a
+     *          value is present, otherwise an empty `Omittable`
+     *
      * @since   0.1.0
      */
     public fun <U> flatMap(mapper: PlatformFunction<T, Omittable<U>>): Omittable<U>
@@ -200,7 +219,10 @@ public expect sealed interface Omittable<T> {
      * the supplying function.
      *
      * @param supplier  the supplying function to be invoked if no value is present
-     * 
+     *
+     * @return  an `Omittable` describing the value of this `Omittable`, if a value is present, otherwise an `Omittable`
+     *          produced by the supplying function
+     *
      * @since   0.1.0
      */
     public fun or(supplier: PlatformSupplier<Omittable<T>>): Omittable<T>
