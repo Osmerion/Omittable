@@ -62,6 +62,10 @@ public actual sealed interface Omittable<T> {
     public actual fun <U> map(mapper: PlatformFunction<T, U>): Omittable<U>
     public actual fun <U> flatMap(mapper: PlatformFunction<T, Omittable<U>>): Omittable<U>
     public actual fun or(supplier: PlatformSupplier<Omittable<T>>): Omittable<T>
+    public actual fun orElse(other: T): T
+    public actual fun orElseGet(supplier: PlatformSupplier<T>): T
+    public actual fun orElseThrow(): T
+    public actual fun orElseThrow(executionSupplier: PlatformSupplier<Throwable>): T
 
     public actual object Absent : Omittable<Any> {
 
@@ -82,8 +86,11 @@ public actual sealed interface Omittable<T> {
         actual override fun <U> map(mapper: PlatformFunction<Any, U>): Omittable<U> = absent()
         actual override fun <U> flatMap(mapper: PlatformFunction<Any, Omittable<U>>): Omittable<U> = absent()
 
-        actual override fun or(supplier: PlatformSupplier<Omittable<Any>>): Omittable<Any> =
-            supplier.get()
+        actual override fun or(supplier: PlatformSupplier<Omittable<Any>>): Omittable<Any> = supplier.get()
+        actual override fun orElse(other: Any): Any = other
+        actual override fun orElseGet(supplier: PlatformSupplier<Any>): Any = supplier.get()
+        actual override fun orElseThrow(): Any = throw NoSuchElementException()
+        actual override fun orElseThrow(executionSupplier: PlatformSupplier<Throwable>): Any = throw executionSupplier.get()
 
         override fun equals(other: Any?): Boolean = this === other
         override fun hashCode(): Int = 0
@@ -119,8 +126,11 @@ public actual sealed interface Omittable<T> {
             return requireNotNull(result)
         }
 
-        public actual override fun or(supplier: PlatformSupplier<Omittable<T>>): Omittable<T> =
-            this
+        actual override fun or(supplier: PlatformSupplier<Omittable<T>>): Omittable<T> = this
+        actual override fun orElse(other: T): T = other
+        actual override fun orElseGet(supplier: PlatformSupplier<T>): T = supplier.get()
+        actual override fun orElseThrow(): T = value
+        actual override fun orElseThrow(executionSupplier: PlatformSupplier<Throwable>): T = value
 
         override fun equals(other: Any?): Boolean = when {
             this === other -> true

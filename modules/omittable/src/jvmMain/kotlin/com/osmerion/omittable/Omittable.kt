@@ -54,6 +54,10 @@ public actual sealed interface Omittable<T> {
     public actual fun <U> map(mapper: PlatformFunction<T, U>): Omittable<U>
     public actual fun <U> flatMap(mapper: PlatformFunction<T, Omittable<U>>): Omittable<U>
     public actual fun or(supplier: PlatformSupplier<Omittable<T>>): Omittable<T>
+    public actual fun orElse(other: T): T
+    public actual fun orElseGet(supplier: PlatformSupplier<T>): T
+    public actual fun orElseThrow(): T
+    public actual fun orElseThrow(executionSupplier: PlatformSupplier<Throwable>): T
 
     /**
      * If a value is present, returns a [Stream] containing only that value, otherwise returns an empty [Stream].
@@ -81,8 +85,11 @@ public actual sealed interface Omittable<T> {
         actual override fun <U> map(mapper: PlatformFunction<Any, U>): Omittable<U> = absent()
         actual override fun <U> flatMap(mapper: PlatformFunction<Any, Omittable<U>>): Omittable<U> = absent()
 
-        actual override fun or(supplier: PlatformSupplier<Omittable<Any>>): Omittable<Any> =
-            supplier.get()
+        actual override fun or(supplier: PlatformSupplier<Omittable<Any>>): Omittable<Any> = supplier.get()
+        actual override fun orElse(other: Any): Any = other
+        actual override fun orElseGet(supplier: PlatformSupplier<Any>): Any = supplier.get()
+        actual override fun orElseThrow(): Any = throw NoSuchElementException()
+        actual override fun orElseThrow(executionSupplier: PlatformSupplier<Throwable>): Any = throw executionSupplier.get()
 
         override fun stream(): Stream<Any> =
             Stream.empty()
@@ -96,34 +103,37 @@ public actual sealed interface Omittable<T> {
     @JvmRecord
     public actual data class Present<T> public constructor(public actual val value: T) : Omittable<T> {
 
-        public actual override fun getOrThrow(): T = value
+        actual override fun getOrThrow(): T = value
 
-        public actual override fun isAbsent(): Boolean = false
-        public actual override fun isPresent(): Boolean = true
+        actual override fun isAbsent(): Boolean = false
+        actual override fun isPresent(): Boolean = true
 
-        public actual override fun ifPresent(action: PlatformConsumer<T>) {
+        actual override fun ifPresent(action: PlatformConsumer<T>) {
             action.accept(value)
         }
 
-        public actual override fun ifPresentOrElse(action: PlatformConsumer<T>, absentAction: PlatformRunnable) {
+        actual override fun ifPresentOrElse(action: PlatformConsumer<T>, absentAction: PlatformRunnable) {
             action.accept(value)
         }
 
-        public actual override fun filter(predicate: PlatformFunction<T, Boolean>): Omittable<T> =
+        actual override fun filter(predicate: PlatformFunction<T, Boolean>): Omittable<T> =
             if (predicate.apply(value)) this else absent()
 
-        public actual override fun <U> map(mapper: PlatformFunction<T, U>): Omittable<U> =
+        actual override fun <U> map(mapper: PlatformFunction<T, U>): Omittable<U> =
             of(mapper.apply(value))
 
-        public actual override fun <U> flatMap(mapper: PlatformFunction<T, Omittable<U>>): Omittable<U> {
+        actual override fun <U> flatMap(mapper: PlatformFunction<T, Omittable<U>>): Omittable<U> {
             val result = mapper.apply(value)
             return requireNotNull(result)
         }
 
-        public actual override fun or(supplier: PlatformSupplier<Omittable<T>>): Omittable<T> =
-            this
+        actual override fun or(supplier: PlatformSupplier<Omittable<T>>): Omittable<T> = this
+        actual override fun orElse(other: T): T = other
+        actual override fun orElseGet(supplier: PlatformSupplier<T>): T = supplier.get()
+        actual override fun orElseThrow(): T = value
+        actual override fun orElseThrow(executionSupplier: PlatformSupplier<Throwable>): T = value
 
-        public override fun stream(): Stream<T> =
+        override fun stream(): Stream<T> =
             Stream.of(value)
 
         override fun equals(other: Any?): Boolean = when {

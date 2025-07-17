@@ -232,6 +232,102 @@ class OmittableKotlinTest {
     }
 
     @Test
+    fun testOrElse_Present() {
+        val omittable = Omittable.of("Hello, World!")
+        val result = omittable.orElse("Alternative")
+        assertEquals("Hello, World!", result)
+    }
+
+    @Test
+    fun testOrElse_Present_Null() {
+        val omittable = Omittable.of<String?>(null)
+        val result = omittable.orElse("Alternative")
+        assertNull(result)
+    }
+
+    @Test
+    fun testOrElse_Absent() {
+        val omittable = Omittable.absent<String>()
+        val result = omittable.orElse("Alternative")
+        assertEquals("Alternative", result)
+    }
+
+    @Test
+    fun testOrElse_Absent_Null() {
+        val omittable = Omittable.absent<String?>()
+        val result = omittable.orElse(null)
+        assertNull(result)
+    }
+
+    @Test
+    fun testOrElseGet_Present() {
+        val omittable = Omittable.of("Hello, World!")
+        val result = omittable.orElseGet { "Alternative" }
+        assertEquals("Hello, World!", result)
+    }
+
+    @Test
+    fun testOrElseGet_Present_Null() {
+        val omittable = Omittable.of<String?>(null)
+        val result = omittable.orElseGet { "Alternative" }
+        assertNull(result)
+    }
+
+    @Test
+    fun testOrElseGet_Absent() {
+        val omittable = Omittable.absent<String>()
+        val result = omittable.orElseGet { "Alternative" }
+        assertEquals("Alternative", result)
+    }
+
+    @Test
+    fun testOrElseGet_Absent_Null() {
+        val omittable = Omittable.absent<String?>()
+        val result = omittable.orElseGet {null }
+        assertNull(result)
+    }
+
+    @Test
+    fun testOrElseThrow_Present() {
+        val omittable = Omittable.of("Hello, World!")
+        val result = omittable.orElseThrow()
+        assertEquals("Hello, World!", result)
+    }
+
+    @Test
+    fun testOrElseThrow_Present_Null() {
+        val omittable = Omittable.of<String?>(null)
+        val result = omittable.orElseThrow()
+        assertNull(result)
+    }
+
+    @Test
+    fun testOrElseThrow_Absent() {
+        val omittable = Omittable.absent<String>()
+        assertFailsWith<NoSuchElementException> { omittable.orElseThrow() }
+    }
+
+    @Test
+    fun testOrElseThrowEx_Present() {
+        val omittable = Omittable.of("Hello, World!")
+        val result = omittable.orElseThrow(::IllegalStateException)
+        assertEquals("Hello, World!", result)
+    }
+
+    @Test
+    fun testOrElseThrowEx_Present_Null() {
+        val omittable = Omittable.of<String?>(null)
+        val result = omittable.orElseThrow(::IllegalStateException)
+        assertNull(result)
+    }
+
+    @Test
+    fun testOrElseThrowEx_Absent() {
+        val omittable = Omittable.absent<String>()
+        assertFailsWith<IllegalStateException> { omittable.orElseThrow(::IllegalStateException) }
+    }
+
+    @Test
     fun testEquals_Absent() {
         assertEquals(Omittable.absent<Any>(), Omittable.absent())
     }
