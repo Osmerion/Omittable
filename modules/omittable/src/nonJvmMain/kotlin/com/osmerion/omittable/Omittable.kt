@@ -121,8 +121,8 @@ public actual sealed interface Omittable<T> {
         }
 
         actual override fun or(supplier: PlatformSupplier<Omittable<T>>): Omittable<T> = this
-        actual override fun orElse(other: T): T = other
-        actual override fun orElseGet(supplier: PlatformSupplier<T>): T = supplier.get()
+        actual override fun orElse(other: T): T = value
+        actual override fun orElseGet(supplier: PlatformSupplier<T>): T = value
         actual override fun orElseThrow(): T = value
         actual override fun orElseThrow(executionSupplier: PlatformSupplier<Throwable>): T = value
 
