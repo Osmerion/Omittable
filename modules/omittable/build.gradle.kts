@@ -33,9 +33,6 @@ plugins {
     id("com.osmerion.maven-publish-conventions")
 }
 
-yarn.lockFileName = "kotlin-yarn.lock"
-yarn.lockFileDirectory = rootDir
-
 kotlin {
     explicitApi()
     applyDefaultHierarchyTemplate()
