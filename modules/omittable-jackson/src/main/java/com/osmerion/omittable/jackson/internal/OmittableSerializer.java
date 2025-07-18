@@ -62,12 +62,12 @@ public final class OmittableSerializer extends ReferenceTypeSerializer<Omittable
 
     @Override
     protected Object _getReferenced(Omittable<?> value) {
-        return value.getOrThrow();
+        return value.orElseThrow();
     }
 
     @Override
     protected @Nullable Object _getReferencedIfPresent(Omittable<?> value) {
-        return value.isPresent() ? value.getOrThrow() : null;
+        return value.isPresent() ? value.orElseThrow() : null;
     }
 
 }

@@ -50,8 +50,6 @@ public actual sealed interface Omittable<T> {
 
     }
 
-    public actual fun getOrThrow(): T
-
     public actual fun isAbsent(): Boolean
     public actual fun isPresent(): Boolean
 
@@ -68,8 +66,6 @@ public actual sealed interface Omittable<T> {
     public actual fun orElseThrow(executionSupplier: PlatformSupplier<Throwable>): T
 
     public actual object Absent : Omittable<Any> {
-
-        actual override fun getOrThrow(): Any = throw NoSuchElementException("No value present")
 
         actual override fun isAbsent(): Boolean = true
         actual override fun isPresent(): Boolean = false
@@ -101,8 +97,6 @@ public actual sealed interface Omittable<T> {
     @JvmRecord
     @ConsistentCopyVisibility
     public actual data class Present<T> internal constructor(public actual val value: T) : Omittable<T> {
-
-        public actual override fun getOrThrow(): T = value
 
         public actual override fun isAbsent(): Boolean = false
         public actual override fun isPresent(): Boolean = true

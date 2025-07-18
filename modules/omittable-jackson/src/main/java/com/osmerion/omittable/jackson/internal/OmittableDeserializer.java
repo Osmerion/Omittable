@@ -63,7 +63,7 @@ public final class OmittableDeserializer extends ReferenceTypeDeserializer<Omitt
 
     @Override
     public @Nullable Object getReferenced(Omittable<?> reference) {
-        return reference.isPresent() ? reference.getOrThrow() : null;
+        return reference.isPresent() ? reference.orElseThrow() : null;
     }
 
     @Override

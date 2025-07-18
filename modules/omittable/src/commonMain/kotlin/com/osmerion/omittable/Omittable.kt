@@ -126,17 +126,6 @@ public expect sealed interface Omittable<T> {
     }
 
     /**
-     * Returns the value contained in this [Omittable] instance, if present.
-     *
-     * @return  the value described by this omittable
-     *
-     * @throws [NoSuchElementException] if no value is present
-     *
-     * @since   0.1.0
-     */
-    public fun getOrThrow(): T
-
-    /**
      * Returns `true` if no value is present, or `false` otherwise.
      *
      * @return  `true` if no value is present, or `false` otherwise
@@ -275,8 +264,6 @@ public expect sealed interface Omittable<T> {
      */
     public object Absent : Omittable<Any> {
 
-        override fun getOrThrow(): Any
-
         override fun isAbsent(): Boolean
         override fun isPresent(): Boolean
 
@@ -307,8 +294,6 @@ public expect sealed interface Omittable<T> {
          * @since   0.1.0
          */
         public val value: T
-
-        override fun getOrThrow(): T
 
         override fun isAbsent(): Boolean
         override fun isPresent(): Boolean

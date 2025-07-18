@@ -44,24 +44,6 @@ class OmittableKotlinTest {
     }
 
     @Test
-    fun testGetOrThrow_Absent() {
-        val omittable = Omittable.absent<Any>()
-        assertFailsWith<NoSuchElementException> { omittable.getOrThrow() }
-    }
-
-    @Test
-    fun testGetOrThrow_Present() {
-        val omittable = Omittable.of("Hello, World!")
-        assertEquals("Hello, World!", omittable.getOrThrow())
-    }
-
-    @Test
-    fun testGetOrThrow_Present_Null() {
-        val omittable = Omittable.of(null)
-        assertNull(omittable.getOrThrow())
-    }
-
-    @Test
     fun testIfPresent_Absent() {
         val omittable = Omittable.absent<Any>()
         var called = false
@@ -283,7 +265,7 @@ class OmittableKotlinTest {
     @Test
     fun testOrElseGet_Absent_Null() {
         val omittable = Omittable.absent<String?>()
-        val result = omittable.orElseGet {null }
+        val result = omittable.orElseGet { null }
         assertNull(result)
     }
 
