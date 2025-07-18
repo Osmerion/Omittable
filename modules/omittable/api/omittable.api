@@ -11,6 +11,10 @@ public abstract interface class com/osmerion/omittable/Omittable {
 	public abstract fun map (Ljava/util/function/Function;)Lcom/osmerion/omittable/Omittable;
 	public static fun of (Ljava/lang/Object;)Lcom/osmerion/omittable/Omittable;
 	public abstract fun or (Ljava/util/function/Supplier;)Lcom/osmerion/omittable/Omittable;
+	public abstract fun orElse (Ljava/lang/Object;)Ljava/lang/Object;
+	public abstract fun orElseGet (Ljava/util/function/Supplier;)Ljava/lang/Object;
+	public abstract fun orElseThrow ()Ljava/lang/Object;
+	public abstract fun orElseThrow (Ljava/util/function/Supplier;)Ljava/lang/Object;
 	public abstract fun stream ()Ljava/util/stream/Stream;
 }
 
@@ -27,6 +31,10 @@ public final class com/osmerion/omittable/Omittable$Absent : com/osmerion/omitta
 	public fun isPresent ()Z
 	public fun map (Ljava/util/function/Function;)Lcom/osmerion/omittable/Omittable;
 	public fun or (Ljava/util/function/Supplier;)Lcom/osmerion/omittable/Omittable;
+	public fun orElse (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun orElseGet (Ljava/util/function/Supplier;)Ljava/lang/Object;
+	public fun orElseThrow ()Ljava/lang/Object;
+	public fun orElseThrow (Ljava/util/function/Supplier;)Ljava/lang/Object;
 	public fun stream ()Ljava/util/stream/Stream;
 	public fun toString ()Ljava/lang/String;
 }
@@ -53,6 +61,10 @@ public final class com/osmerion/omittable/Omittable$Present : java/lang/Record, 
 	public fun isPresent ()Z
 	public fun map (Ljava/util/function/Function;)Lcom/osmerion/omittable/Omittable;
 	public fun or (Ljava/util/function/Supplier;)Lcom/osmerion/omittable/Omittable;
+	public fun orElse (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun orElseGet (Ljava/util/function/Supplier;)Ljava/lang/Object;
+	public fun orElseThrow ()Ljava/lang/Object;
+	public fun orElseThrow (Ljava/util/function/Supplier;)Ljava/lang/Object;
 	public fun stream ()Ljava/util/stream/Stream;
 	public fun toString ()Ljava/lang/String;
 	public final fun value ()Ljava/lang/Object;
