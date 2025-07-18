@@ -3,7 +3,6 @@ public abstract interface class com/osmerion/omittable/Omittable {
 	public static fun absent ()Lcom/osmerion/omittable/Omittable;
 	public abstract fun filter (Ljava/util/function/Function;)Lcom/osmerion/omittable/Omittable;
 	public abstract fun flatMap (Ljava/util/function/Function;)Lcom/osmerion/omittable/Omittable;
-	public abstract fun getOrThrow ()Ljava/lang/Object;
 	public abstract fun ifPresent (Ljava/util/function/Consumer;)V
 	public abstract fun ifPresentOrElse (Ljava/util/function/Consumer;Ljava/lang/Runnable;)V
 	public abstract fun isAbsent ()Z
@@ -23,7 +22,6 @@ public final class com/osmerion/omittable/Omittable$Absent : com/osmerion/omitta
 	public fun equals (Ljava/lang/Object;)Z
 	public fun filter (Ljava/util/function/Function;)Lcom/osmerion/omittable/Omittable;
 	public fun flatMap (Ljava/util/function/Function;)Lcom/osmerion/omittable/Omittable;
-	public fun getOrThrow ()Ljava/lang/Object;
 	public fun hashCode ()I
 	public fun ifPresent (Ljava/util/function/Consumer;)V
 	public fun ifPresentOrElse (Ljava/util/function/Consumer;Ljava/lang/Runnable;)V
@@ -53,7 +51,6 @@ public final class com/osmerion/omittable/Omittable$Present : java/lang/Record, 
 	public fun equals (Ljava/lang/Object;)Z
 	public fun filter (Ljava/util/function/Function;)Lcom/osmerion/omittable/Omittable;
 	public fun flatMap (Ljava/util/function/Function;)Lcom/osmerion/omittable/Omittable;
-	public fun getOrThrow ()Ljava/lang/Object;
 	public fun hashCode ()I
 	public fun ifPresent (Ljava/util/function/Consumer;)V
 	public fun ifPresentOrElse (Ljava/util/function/Consumer;Ljava/lang/Runnable;)V
