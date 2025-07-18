@@ -262,22 +262,22 @@ public expect sealed interface Omittable<T> {
      *
      * @since   0.1.0
      */
-    public object Absent : Omittable<Any> {
+    public object Absent : Omittable<Any?> {
 
         override fun isAbsent(): Boolean
         override fun isPresent(): Boolean
 
-        override fun ifPresent(action: PlatformConsumer<Any>)
-        override fun ifPresentOrElse(action: PlatformConsumer<Any>, absentAction: PlatformRunnable)
+        override fun ifPresent(action: PlatformConsumer<Any?>)
+        override fun ifPresentOrElse(action: PlatformConsumer<Any?>, absentAction: PlatformRunnable)
 
-        override fun filter(predicate: PlatformFunction<Any, Boolean>): Omittable<Any>
-        override fun <U> map(mapper: PlatformFunction<Any, U>): Omittable<U>
-        override fun <U> flatMap(mapper: PlatformFunction<Any, Omittable<U>>): Omittable<U>
-        override fun or(supplier: PlatformSupplier<Omittable<Any>>): Omittable<Any>
-        override fun orElse(other: Any): Any
-        override fun orElseGet(supplier: PlatformSupplier<Any>): Any
-        override fun orElseThrow(): Any
-        override fun orElseThrow(executionSupplier: PlatformSupplier<Throwable>): Any
+        override fun filter(predicate: PlatformFunction<Any?, Boolean>): Omittable<Any?>
+        override fun <U> map(mapper: PlatformFunction<Any?, U>): Omittable<U>
+        override fun <U> flatMap(mapper: PlatformFunction<Any?, Omittable<U>>): Omittable<U>
+        override fun or(supplier: PlatformSupplier<Omittable<Any?>>): Omittable<Any?>
+        override fun orElse(other: Any?): Any?
+        override fun orElseGet(supplier: PlatformSupplier<Any?>): Any?
+        override fun orElseThrow(): Any?
+        override fun orElseThrow(executionSupplier: PlatformSupplier<Throwable>): Any?
 
     }
 
