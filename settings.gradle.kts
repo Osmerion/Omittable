@@ -47,5 +47,8 @@ enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 include(":omittable")
 project(":omittable").projectDir = file("modules/omittable")
 
+include(":omittable-bom")
+project(":omittable-bom").projectDir = file("modules/omittable-bom")
+
 include(":omittable-jackson")
 project(":omittable-jackson").projectDir = file("modules/omittable-jackson")
