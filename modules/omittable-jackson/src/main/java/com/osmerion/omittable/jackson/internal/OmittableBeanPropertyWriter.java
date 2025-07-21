@@ -29,7 +29,7 @@ public final class OmittableBeanPropertyWriter extends BeanPropertyWriter {
     }
 
     private OmittableBeanPropertyWriter(BeanPropertyWriter base, PropertyName propertyName) {
-        super(base);
+        super(base, propertyName);
     }
 
     @Override
