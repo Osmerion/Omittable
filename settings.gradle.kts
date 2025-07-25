@@ -52,3 +52,6 @@ project(":omittable-bom").projectDir = file("modules/omittable-bom")
 
 include(":omittable-jackson")
 project(":omittable-jackson").projectDir = file("modules/omittable-jackson")
+
+include(":omittable-swagger-core")
+project(":omittable-swagger-core").projectDir = file("modules/omittable-swagger-core")

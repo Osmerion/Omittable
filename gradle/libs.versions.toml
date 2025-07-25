@@ -1,11 +1,16 @@
 [versions]
 kotlinx-serialization = "1.9.0"
+swagger-core = "2.2.34"
 
 
 [libraries]
 # com.fasterxml.jackson.core:jackson-databind - Jackson Databind
 # https://github.com/FasterXML/jackson-databind
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version = "2.19.2" }
+
+# io.swagger.core.v3 - Swagger Core
+# https://github.com/swagger-api/swagger-core
+swagger-core-jakarta = { module = "io.swagger.core.v3:swagger-core-jakarta", version.ref = "swagger-core" }
 
 # org.jetbrains.kotlinx:kotlinx-serialization-[...] - kotlinx.serialization
 # https://github.com/Kotlin/kotlinx.serialization
