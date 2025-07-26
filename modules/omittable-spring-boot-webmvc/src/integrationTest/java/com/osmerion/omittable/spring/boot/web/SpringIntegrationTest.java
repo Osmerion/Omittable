@@ -54,10 +54,10 @@ public final class SpringIntegrationTest {
         assertThat(prettyJson)
             .isEqualTo(
                 """
-                                "{
+                {
                   "openapi" : "3.1.0",
                   "servers" : [ {
-                    "url" : "http://localhost:60615",
+                    "url" : "http://localhost:%s",
                     "description" : "Generated server url"
                   } ],
                   "paths" : {
