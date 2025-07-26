@@ -28,6 +28,12 @@ testing {
     }
 }
 
+tasks {
+    check {
+        dependsOn(testing.suites.named("integrationTest"))
+    }
+}
+
 dependencies {
     api(project(":omittable-spring-webmvc"))
     api(project(":omittable-swagger-core"))
