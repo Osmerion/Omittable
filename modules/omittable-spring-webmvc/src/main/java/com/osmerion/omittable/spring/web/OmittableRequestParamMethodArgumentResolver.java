@@ -82,7 +82,7 @@ public final class OmittableRequestParamMethodArgumentResolver extends AbstractN
         }
 
         public RequestParamNamedValueInfo(RequestParam annotation) {
-            super(annotation.name(), annotation.required(), annotation.defaultValue());
+            super(annotation.name(), false, annotation.defaultValue());
         }
 
     }

@@ -13,30 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    id("com.osmerion.java-base-conventions")
-    id("com.osmerion.maven-publish-conventions")
-    `java-library`
-}
+package com.example.model;
 
-java {
-    withSourcesJar()
-    withJavadocJar()
-}
+import com.osmerion.omittable.Omittable;
+import org.jspecify.annotations.Nullable;
 
-publishing {
-    publications.register<MavenPublication>("mavenJava") {
-        from(components["java"])
-
-        pom {
-            description = "Spring Web MVC support for Omittable types in handler methods."
-        }
-    }
-}
-
-dependencies {
-    api(project(":omittable", "archives"))
-    api(project(":omittable", "jvmRuntimeElements"))
-    api(libs.jspecify)
-    api(libs.spring.webmvc)
-}
+public record PersonUpdate(
+    Omittable<String> name,
+    String required,
+    @Nullable String requiredNullable,
+    Omittable<@Nullable String> nullable
+) {}

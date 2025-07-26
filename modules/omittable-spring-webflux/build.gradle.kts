@@ -13,7 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@NullMarked
-package com.osmerion.omittable.spring.boot.web;
+plugins {
+    id("com.osmerion.java-base-conventions")
+    id("com.osmerion.maven-publish-conventions")
+    `java-library`
+}
 
-import org.jspecify.annotations.NullMarked;
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+publishing {
+    publications.register<MavenPublication>("mavenJava") {
+        from(components["java"])
+
+        pom {
+            description = "Spring WebFlux support for Omittable types in handler methods."
+        }
+    }
+}
+
+dependencies {
+    api(project(":omittable", "archives"))
+    api(project(":omittable", "jvmRuntimeElements"))
+    api(libs.jspecify)
+    api(libs.spring.webflux)
+}

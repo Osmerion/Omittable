@@ -13,24 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.osmerion.omittable.spring.boot.web;
+package com.osmerion.omittable.spring.boot.webflux;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.osmerion.omittable.Omittable;
 import com.osmerion.omittable.jackson.OmittableModule;
-import com.osmerion.omittable.spring.web.OmittableRequestParamMethodArgumentResolver;
+import com.osmerion.omittable.spring.webflux.OmittableRequestParamMethodArgumentResolver;
 import com.osmerion.omittable.swagger.v3.core.converter.OmittableModelConverter;
+import org.jspecify.annotations.Nullable;
 import org.springdoc.core.customizers.ParameterCustomizer;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.List;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.core.ReactiveAdapter;
+import org.springframework.core.ReactiveAdapterRegistry;
+import org.springframework.web.reactive.config.WebFluxConfigurer;
+import org.springframework.web.reactive.result.method.annotation.ArgumentResolverConfigurer;
 
 /**
  * {@link AutoConfiguration Auto-configuration} for Omittable support.
@@ -40,21 +43,19 @@ import java.util.List;
  * @author  Leon Linhart
  */
 @AutoConfiguration
-@ConditionalOnWebApplication(type =  ConditionalOnWebApplication.Type.SERVLET)
-public class OmittableAutoConfiguration {
+@ConditionalOnWebApplication(type =  ConditionalOnWebApplication.Type.REACTIVE)
+public class OmittableReactiveAutoConfiguration {
 
     @Bean
-    public OmittableRequestParamMethodArgumentResolver omittableRequestParamMethodArgumentResolver() {
-        return new OmittableRequestParamMethodArgumentResolver();
-    }
-
-    @Bean
-    public WebMvcConfigurer omittableWebMvcConfigurer(OmittableRequestParamMethodArgumentResolver resolver) {
-        return new WebMvcConfigurer() {
+    public WebFluxConfigurer omittableWebFluxConfigurer(
+        @Nullable ConfigurableBeanFactory factory,
+        @Lazy ReactiveAdapterRegistry registry
+    ) {
+        return new WebFluxConfigurer() {
 
             @Override
-            public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-                resolvers.add(resolver);
+            public void configureArgumentResolvers(ArgumentResolverConfigurer configurer) {
+                configurer.addCustomResolver(new OmittableRequestParamMethodArgumentResolver(factory, registry));
             }
 
         };
@@ -77,9 +78,20 @@ public class OmittableAutoConfiguration {
     public static class OmittableSpringdocAutoConfiguration {
 
         @Bean
-        public ParameterCustomizer omittableParameterCustomizer() {
+        public ParameterCustomizer omittableParameterCustomizer(ReactiveAdapterRegistry registry) {
             return (p, m) -> {
-                p.setRequired(m.getParameter().getType().equals(Omittable.class));
+                Class<?> type = m.getNestedParameterType();
+                ReactiveAdapter adapter = registry.getAdapter(type);
+
+                if (adapter != null) {
+                    m = m.nested();
+                    type = m.getNestedParameterType();
+                }
+
+                if (type.equals(Omittable.class)) {
+                    p.setRequired(false); // Omittable parameters are never required
+                }
+
                 return p;
             };
         }

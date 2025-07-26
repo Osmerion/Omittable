@@ -13,30 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    id("com.osmerion.java-base-conventions")
-    id("com.osmerion.maven-publish-conventions")
-    `java-library`
-}
+package com.example;
 
-java {
-    withSourcesJar()
-    withJavadocJar()
-}
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.reactive.config.EnableWebFlux;
 
-publishing {
-    publications.register<MavenPublication>("mavenJava") {
-        from(components["java"])
+@SpringBootApplication
+@EnableWebFlux
+@OpenAPIDefinition
+public class Main {
 
-        pom {
-            description = "Spring Web MVC support for Omittable types in handler methods."
-        }
+    public static void main(String[] args) {
+        SpringApplication.run(Main.class, args);
     }
-}
 
-dependencies {
-    api(project(":omittable", "archives"))
-    api(project(":omittable", "jvmRuntimeElements"))
-    api(libs.jspecify)
-    api(libs.spring.webmvc)
 }

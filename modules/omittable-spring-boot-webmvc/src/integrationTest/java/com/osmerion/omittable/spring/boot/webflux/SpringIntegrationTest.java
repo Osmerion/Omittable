@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.osmerion.omittable.spring.boot.web;
+package com.osmerion.omittable.spring.boot.webflux;
 
 import com.example.Main;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -68,7 +68,7 @@ public final class SpringIntegrationTest {
                         "parameters" : [ {
                           "name" : "arg0",
                           "in" : "query",
-                          "required" : true,
+                          "required" : false,
                           "schema" : {
                             "type" : "string"
                           }
@@ -85,7 +85,7 @@ public final class SpringIntegrationTest {
                         "parameters" : [ {
                           "name" : "arg0",
                           "in" : "query",
-                          "required" : false,
+                          "required" : true,
                           "schema" : {
                             "$ref" : "#/components/schemas/PersonUpdate"
                           }
