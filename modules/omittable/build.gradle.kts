@@ -161,7 +161,6 @@ kotlin {
             dependsOn(commonMain.get())
 
             dependencies {
-                api(kotlin("stdlib"))
                 api(libs.kotlinx.serialization.core)
             }
         }
