@@ -52,8 +52,8 @@ public final class OmittableDeserializer extends ReferenceTypeDeserializer<Omitt
     }
 
     @Override
-    public Object getAbsentValue(DeserializationContext ctxt) throws JsonMappingException {
-        return this.getNullValue(ctxt);
+    public Object getAbsentValue(DeserializationContext ctxt) {
+        return Omittable.absent();
     }
 
     @Override
