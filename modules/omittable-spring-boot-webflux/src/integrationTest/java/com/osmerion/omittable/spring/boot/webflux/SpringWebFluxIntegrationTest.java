@@ -57,7 +57,7 @@ public final class SpringWebFluxIntegrationTest {
                 {
                   "openapi" : "3.1.0",
                   "servers" : [ {
-                    "url" : "http://localhost:54481",
+                    "url" : "http://localhost:%s",
                     "description" : "Generated server url"
                   } ],
                   "paths" : {

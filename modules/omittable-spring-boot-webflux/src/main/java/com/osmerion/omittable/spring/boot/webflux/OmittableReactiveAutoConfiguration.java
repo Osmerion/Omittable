@@ -47,15 +47,20 @@ import org.springframework.web.reactive.result.method.annotation.ArgumentResolve
 public class OmittableReactiveAutoConfiguration {
 
     @Bean
-    public WebFluxConfigurer omittableWebFluxConfigurer(
+    public OmittableRequestParamMethodArgumentResolver omittableRequestParamMethodArgumentResolver(
         @Nullable ConfigurableBeanFactory factory,
         @Lazy ReactiveAdapterRegistry registry
     ) {
+        return new OmittableRequestParamMethodArgumentResolver(factory, registry);
+    }
+
+    @Bean
+    public WebFluxConfigurer omittableWebFluxConfigurer(OmittableRequestParamMethodArgumentResolver resolver) {
         return new WebFluxConfigurer() {
 
             @Override
             public void configureArgumentResolvers(ArgumentResolverConfigurer configurer) {
-                configurer.addCustomResolver(new OmittableRequestParamMethodArgumentResolver(factory, registry));
+                configurer.addCustomResolver(resolver);
             }
 
         };

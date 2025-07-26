@@ -51,7 +51,7 @@ public class OmittableAutoConfiguration {
     }
 
     @Bean
-    public InitializingBean init(
+    public InitializingBean omittableInitializationBean(
         @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
         RequestMappingHandlerAdapter requestMappingHandlerAdapter,
         OmittableRequestParamMethodArgumentResolver resolver
