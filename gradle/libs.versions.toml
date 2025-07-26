@@ -1,5 +1,8 @@
 [versions]
 kotlinx-serialization = "1.9.0"
+spring-boot = "3.5.4"
+spring-framework = "6.2.9"
+springdoc = "2.8.9"
 swagger-core = "2.2.34"
 
 
@@ -20,3 +23,21 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 # org.jspecify - JSpecify
 # https://github.com/jspecify/jspecify
 jspecify = { module = "org.jspecify:jspecify", version = "1.0.0" }
+
+# org.springframework - Spring Framework
+# https://github.com/spring-projects/spring-framework
+spring-webflux = { module = "org.springframework:spring-webflux", version.ref = "spring-framework" }
+spring-webmvc = { module = "org.springframework:spring-webmvc", version.ref = "spring-framework" }
+
+# org.springframework.boot - Spring Boot
+# https://github.com/spring-projects/spring-boot
+spring-boot = { module = "org.springframework.boot:spring-boot", version.ref = "spring-boot" }
+spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "spring-boot" }
+spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
+
+# org.springdoc - springdoc
+# https://github.com/springdoc/springdoc-openapi
+springdoc-openapi-starter-common = { module = "org.springdoc:springdoc-openapi-starter-common", version.ref = "springdoc" }
+springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }

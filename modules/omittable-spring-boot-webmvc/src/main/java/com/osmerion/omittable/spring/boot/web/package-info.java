@@ -13,15 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    `kotlin-dsl`
-}
+@NullMarked
+package com.osmerion.omittable.spring.boot.web;
 
-gradlePlugin {
-    plugins {
-        register("optional-dependencies") {
-            id = "com.osmerion.optional-dependencies"
-            implementationClass = "com.osmerion.OptionalDependenciesPlugin"
-        }
-    }
-}
+import org.jspecify.annotations.NullMarked;

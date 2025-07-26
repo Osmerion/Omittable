@@ -13,15 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    `kotlin-dsl`
-}
+package com.example.web;
 
-gradlePlugin {
-    plugins {
-        register("optional-dependencies") {
-            id = "com.osmerion.optional-dependencies"
-            implementationClass = "com.osmerion.OptionalDependenciesPlugin"
-        }
+import com.example.model.PersonUpdate;
+import com.osmerion.omittable.Omittable;
+import org.jspecify.annotations.Nullable;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/person")
+public final class PersonController {
+
+    @GetMapping
+    public void foo(@RequestParam Omittable<@Nullable String> f) {
+
     }
+
+    @PatchMapping
+    public void patchPerson(PersonUpdate person) {
+
+    }
+
 }

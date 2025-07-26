@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    `kotlin-dsl`
-}
+package com.example.model;
 
-gradlePlugin {
-    plugins {
-        register("optional-dependencies") {
-            id = "com.osmerion.optional-dependencies"
-            implementationClass = "com.osmerion.OptionalDependenciesPlugin"
-        }
-    }
-}
+import com.osmerion.omittable.Omittable;
+import org.jspecify.annotations.Nullable;
+
+public record PersonUpdate(
+    Omittable<String> name,
+    String required,
+    @Nullable String requiredNullable,
+    Omittable<@Nullable String> nullable
+) {}

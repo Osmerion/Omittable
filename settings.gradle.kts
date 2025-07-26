@@ -53,5 +53,11 @@ project(":omittable-bom").projectDir = file("modules/omittable-bom")
 include(":omittable-jackson")
 project(":omittable-jackson").projectDir = file("modules/omittable-jackson")
 
+include(":omittable-spring-boot-starter-web")
+project(":omittable-spring-boot-starter-web").projectDir = file("modules/omittable-spring-boot-starter-web")
+
+include(":omittable-spring-webmvc")
+project(":omittable-spring-webmvc").projectDir = file("modules/omittable-spring-webmvc")
+
 include(":omittable-swagger-core")
 project(":omittable-swagger-core").projectDir = file("modules/omittable-swagger-core")
