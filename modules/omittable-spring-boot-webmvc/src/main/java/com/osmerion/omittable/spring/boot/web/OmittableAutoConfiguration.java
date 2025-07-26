@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.osmerion.omittable.spring.boot.webflux;
+package com.osmerion.omittable.spring.boot.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.osmerion.omittable.Omittable;
@@ -21,16 +21,18 @@ import com.osmerion.omittable.jackson.OmittableModule;
 import com.osmerion.omittable.spring.web.OmittableRequestParamMethodArgumentResolver;
 import com.osmerion.omittable.swagger.v3.core.converter.OmittableModelConverter;
 import org.springdoc.core.customizers.ParameterCustomizer;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * {@link AutoConfiguration Auto-configuration} for Omittable support.
@@ -49,14 +51,16 @@ public class OmittableAutoConfiguration {
     }
 
     @Bean
-    public WebMvcConfigurer omittableWebMvcConfigurer(OmittableRequestParamMethodArgumentResolver resolver) {
-        return new WebMvcConfigurer() {
-
-            @Override
-            public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-                resolvers.add(resolver);
-            }
-
+    public InitializingBean init(
+        @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+        RequestMappingHandlerAdapter requestMappingHandlerAdapter,
+        OmittableRequestParamMethodArgumentResolver resolver
+    ) {
+        return () -> {
+            requestMappingHandlerAdapter.setArgumentResolvers(Stream.concat(
+                Stream.of(resolver),
+                Optional.ofNullable(requestMappingHandlerAdapter.getArgumentResolvers()).stream().flatMap(List::stream)
+            ).toList());
         };
     }
 

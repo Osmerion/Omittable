@@ -18,6 +18,7 @@ package com.example.web;
 import com.example.model.PersonUpdate;
 import com.osmerion.omittable.Omittable;
 import org.jspecify.annotations.Nullable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,13 +26,15 @@ import org.springframework.web.bind.annotation.*;
 public final class PersonController {
 
     @GetMapping
-    public void foo(@RequestParam Omittable<@Nullable String> f) {
-
+    public ResponseEntity<String> findByFilter(
+        @RequestParam(name = "name", required = false) Omittable<@Nullable String> name
+    ) {
+        return ResponseEntity.ok(name.toString());
     }
 
     @PatchMapping
-    public void patchPerson(PersonUpdate person) {
-
+    public ResponseEntity<PersonUpdate> patchPerson(PersonUpdate person) {
+        return ResponseEntity.ok(person);
     }
 
 }

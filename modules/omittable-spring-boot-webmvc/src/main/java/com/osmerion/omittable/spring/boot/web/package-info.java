@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 @NullMarked
-package com.osmerion.omittable.spring.boot.webflux;
+package com.osmerion.omittable.spring.boot.web;
 
 import org.jspecify.annotations.NullMarked;

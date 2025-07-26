@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.osmerion.omittable.spring.boot.webflux;
+package com.osmerion.omittable.spring.boot.web;
 
 import com.example.Main;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -54,19 +54,19 @@ public final class SpringIntegrationTest {
         assertThat(prettyJson)
             .isEqualTo(
                 """
-                {
+                                "{
                   "openapi" : "3.1.0",
                   "servers" : [ {
-                    "url" : "http://localhost:%s",
+                    "url" : "http://localhost:60615",
                     "description" : "Generated server url"
                   } ],
                   "paths" : {
                     "/person" : {
                       "get" : {
                         "tags" : [ "person-controller" ],
-                        "operationId" : "foo",
+                        "operationId" : "findByFilter",
                         "parameters" : [ {
-                          "name" : "arg0",
+                          "name" : "name",
                           "in" : "query",
                           "required" : false,
                           "schema" : {
@@ -75,7 +75,14 @@ public final class SpringIntegrationTest {
                         } ],
                         "responses" : {
                           "200" : {
-                            "description" : "OK"
+                            "description" : "OK",
+                            "content" : {
+                              "*/*" : {
+                                "schema" : {
+                                  "type" : "string"
+                                }
+                              }
+                            }
                           }
                         }
                       },
@@ -92,7 +99,14 @@ public final class SpringIntegrationTest {
                         } ],
                         "responses" : {
                           "200" : {
-                            "description" : "OK"
+                            "description" : "OK",
+                            "content" : {
+                              "*/*" : {
+                                "schema" : {
+                                  "$ref" : "#/components/schemas/PersonUpdate"
+                                }
+                              }
+                            }
                           }
                         }
                       }
@@ -123,6 +137,16 @@ public final class SpringIntegrationTest {
                 }""",
                 this.port
             );
+    }
+
+    @Test
+    public void testHandlerMethodArgumentResolver() {
+        assertThat(this.testRestTemplate.getForObject("http://localhost:" + port + "/person", String.class))
+            .isEqualTo("Omittable.absent");
+
+        assertThat(this.testRestTemplate.getForObject("http://localhost:" + port + "/person?name=Karl", String.class))
+            .isEqualTo("Omittable[Karl]");
+
     }
 
 }
