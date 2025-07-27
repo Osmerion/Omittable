@@ -1,3 +1,34 @@
+### 0.2.0
+
+_Released 2025 Jul 28_
+
+#### Improvements
+
+- Added more utility functions to more easily retrieve the value described by an
+  `Omittable`.
+- Added JSpecify dependency and explicit nullability markers.
+- Added a Bill of Materials (BoM) to keep Omittable module versions in sync.
+    - This is available in the `omittable-bom` artifact.
+- Added an `omittable-swagger-core` module to provide Swagger support for
+  omittable types via custom `ModelConverter`.
+- Added `omittable-spring-webmvc` and `omittable-spring-boot-webmvc` modules
+  that provide integration with Spring's servlet API.
+- Added `omittable-spring-webflux` and `omittable-spring-boot-webflux` modules
+  that provide integration with Spring's servlet API.
+
+#### Fixes
+
+- Replaced placeholder metadata for Jackson module.
+- The `omittable` module now declares a dependency on Kotlin's standard library
+  to avoid errors during class loading related to compiler-generated checks.
+
+#### Breaking Changes
+
+- Removed `Omittable.getOrThrow` in favor of `Omittable.orElseThrow`.
+
+
+---
+
 ### 0.1.0
 
 _Released 2025 Jul 11_
