@@ -263,8 +263,10 @@ tasks {
     named<Jar>("jvmJar") {
         from(transformClasses.flatMap { it.outputDirectory })
 
+        val compileKotlinDestinationDir = project.tasks.named<KotlinCompile>("compileKotlinJvm").flatMap { it.destinationDirectory }
+
         eachFile {
-            val tree = project.tasks.named<KotlinCompile>("compileKotlinJvm").flatMap { it.destinationDirectory }.get().asFileTree
+            val tree = compileKotlinDestinationDir.get().asFileTree
             if (tree.contains(file)) {
                 exclude()
             }
