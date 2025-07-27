@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.osmerion
+package com.osmerion.build.plugins
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project

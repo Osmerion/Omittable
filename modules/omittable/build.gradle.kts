@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import com.osmerion.build.tasks.TransformIntrinsicsTask
 import groovy.util.Node
 import groovy.util.NodeList
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
@@ -161,6 +162,7 @@ kotlin {
             dependsOn(commonMain.get())
 
             dependencies {
+                api(kotlin("stdlib"))
                 api(libs.kotlinx.serialization.core)
             }
         }
@@ -252,6 +254,23 @@ tasks {
     generatePomFileForKotlinMultiplatformPublication {
         dependsOn(project.tasks.named("generatePomFileForJvmPublication"))
     }
+
+    val transformClasses by registering(TransformIntrinsicsTask::class) {
+        inputDirectory = named<KotlinCompile>("compileKotlinJvm").flatMap { it.destinationDirectory }
+        outputDirectory = layout.buildDirectory.dir("transformed-classes")
+    }
+
+    named<Jar>("jvmJar") {
+        from(transformClasses.flatMap { it.outputDirectory })
+
+        eachFile {
+            val tree = project.tasks.named<KotlinCompile>("compileKotlinJvm").flatMap { it.destinationDirectory }.get().asFileTree
+            if (tree.contains(file)) {
+                exclude()
+            }
+        }
+    }
+
 }
 
 publishing {

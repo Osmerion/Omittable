@@ -21,7 +21,7 @@ gradlePlugin {
     plugins {
         register("optional-dependencies") {
             id = "com.osmerion.optional-dependencies"
-            implementationClass = "com.osmerion.OptionalDependenciesPlugin"
+            implementationClass = "com.osmerion.build.plugins.OptionalDependenciesPlugin"
         }
     }
 }
