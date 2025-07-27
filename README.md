@@ -160,6 +160,33 @@ assert user.birthday().isAbsent();
 ```
 
 
+## Swagger Core
+
+The `omittable-swagger-core` artifact provides a model converter for omittable
+types to generate seamless OpenAPI specifications.
+
+```java
+ObjectMapper objectMapper = new ObjectMapper();
+objectMapper.registerModule(new OmittableModule());
+
+ModelConverters converters = new ModelConverters();
+converters.addConverter(new OmittableModelConverter(objectMapper));
+
+converters.read(MyModel.class);
+```
+
+
+### Spring
+
+The `omittable-spring-webflux` and `omittable-spring-webmvc` artifacts provide
+support for using `Omittable` in Spring WebFlux and Spring WebMVC respectively.
+Both artifacts provide a handler method argument resolver for their respective
+frameworks that allows using omittable types as reqeust parameters.
+
+The `omittable-spring-boot-webflux` and `omittable-spring-boot-webmvc` modules
+provide autoconfiguration on top of the respective artifacts.
+
+
 ## Building from source
 
 ### Setup
