@@ -287,6 +287,7 @@ publishing {
         }
 
         // See https://github.com/GW2ToolBelt/GW2ChatLinks/issues/18
+        // TODO This is incompatible with configuration caching
         named<MavenPublication>("kotlinMultiplatform") {
             val jvmPublication = publications.getByName<MavenPublication>("jvm")
 
@@ -317,3 +318,11 @@ publishing {
         }
     }
 }
+
+tasks
+    .matching { it.name == "generatePomFileForKotlinMultiplatformPublication" }
+    .configureEach {
+        dependsOn(
+            "generatePomFileForJvmPublication"
+        )
+    }
