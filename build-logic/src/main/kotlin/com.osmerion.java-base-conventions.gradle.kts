@@ -13,13 +13,6 @@ tasks {
         options.release = 17
     }
 
-    withType<Jar>().configureEach {
-        isPreserveFileTimestamps = false
-        isReproducibleFileOrder = true
-
-        includeEmptyDirs = false
-    }
-
     withType<Test>().configureEach {
         useJUnitPlatform()
     }

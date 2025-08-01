@@ -243,13 +243,6 @@ tasks {
         useJUnitPlatform()
     }
 
-    withType<Jar>().configureEach {
-        isPreserveFileTimestamps = false
-        isReproducibleFileOrder = true
-
-        includeEmptyDirs = false
-    }
-
     // See https://github.com/GW2ToolBelt/GW2ChatLinks/issues/18
     generatePomFileForKotlinMultiplatformPublication {
         dependsOn(project.tasks.named("generatePomFileForJvmPublication"))
