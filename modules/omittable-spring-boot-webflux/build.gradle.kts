@@ -34,6 +34,16 @@ tasks {
     }
 }
 
+publishing {
+    publications.register<MavenPublication>("mavenJava") {
+        from(components["java"])
+
+        pom {
+            description = "Spring Boot WebFlux support for Omittable types."
+        }
+    }
+}
+
 dependencies {
     api(project(":omittable-spring-webflux"))
     api(project(":omittable-swagger-core"))

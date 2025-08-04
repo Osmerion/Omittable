@@ -34,6 +34,16 @@ tasks {
     }
 }
 
+publishing {
+    publications.register<MavenPublication>("mavenJava") {
+        from(components["java"])
+
+        pom {
+            description = "Spring Boot Web MVC support for Omittable types."
+        }
+    }
+}
+
 dependencies {
     api(project(":omittable-spring-webmvc"))
     api(project(":omittable-swagger-core"))
