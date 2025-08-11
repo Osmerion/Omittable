@@ -4,7 +4,6 @@ on:
   - push
   - workflow_dispatch
 
-
 jobs:
   build:
     name: Build
@@ -28,7 +27,6 @@ jobs:
       - name: Gradle Assemble
         run: ./gradlew assemble --info -S --show-version
 
-
   build-docs:
     name: Build Documentation
     needs: build
@@ -48,7 +46,6 @@ jobs:
 
       - name: Dokka Generate
         run: ./gradlew dokkaGenerate --info -S --show-version
-
 
   check:
     name: Check
