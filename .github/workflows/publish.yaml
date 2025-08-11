@@ -153,9 +153,9 @@ jobs:
           path: .
 
       - name: Upload to Central Portal
-        uses: TheMrMilchmann/central-portal-actions/upload-deployment@v0
+        uses: TheMrMilchmann/central-portal-actions/upload-deployment@3b930f17b4a03b4e330ec419812ec447e11cafa3 # v0
         with:
           username: ${{ secrets.CENTRAL_PORTAL_USERNAME }}
           password: ${{ secrets.CENTRAL_PORTAL_PASSWORD }}
           bundle: ./artifact-bundle.tgz
-          publishing-type: "user-managed"
+          publishing-type: "automatic"
