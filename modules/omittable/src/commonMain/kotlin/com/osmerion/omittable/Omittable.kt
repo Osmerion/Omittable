@@ -2,7 +2,6 @@ package com.osmerion.omittable
 
 import com.osmerion.omittable.internal.kotlinx.serialization.OmittableSerializer
 import kotlinx.serialization.Serializable
-import kotlin.jvm.JvmRecord
 
 /**
  * A functional interface that accepts a single input argument and returns no result.
