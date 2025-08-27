@@ -85,6 +85,9 @@ public expect fun interface PlatformSupplier<T> {
 /**
  * A container object which may or may not contain a value.
  *
+ * This is a value-based class; use of identity-sensitive operations (including reference equality (`===`), identity
+ * hash code, or synchronization) on instances of `Omittable` may have unpredictable results and should be avoided.
+ *
  * @since   0.1.0
  *
  * @author  Leon Linhart
