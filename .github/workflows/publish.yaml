@@ -26,7 +26,7 @@ jobs:
           java-version-file: .github/workflows/.java-version
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3 # v4
+        uses: gradle/actions/setup-gradle@ed408507eac070d1f99cc633dbcf757c94c7933a # v4
 
       - name: Gradle Assemble
         run: ./gradlew assemble --info -S --show-version
@@ -49,7 +49,7 @@ jobs:
           java-version-file: .github/workflows/.java-version
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3 # v4
+        uses: gradle/actions/setup-gradle@ed408507eac070d1f99cc633dbcf757c94c7933a # v4
 
       - name: Gradle Check
         run: ./gradlew check --info -S --show-version
@@ -69,7 +69,7 @@ jobs:
           java-version-file: .github/workflows/.java-version
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3 # v4
+        uses: gradle/actions/setup-gradle@ed408507eac070d1f99cc633dbcf757c94c7933a # v4
 
       - name: Dokka Generate
         run: ./gradlew dokkaGenerate --info -S --show-version
@@ -92,7 +92,7 @@ jobs:
           java-version-file: .github/workflows/.java-version
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3 # v4
+        uses: gradle/actions/setup-gradle@ed408507eac070d1f99cc633dbcf757c94c7933a # v4
 
       - name: Build Artifact Bundle
         env:
