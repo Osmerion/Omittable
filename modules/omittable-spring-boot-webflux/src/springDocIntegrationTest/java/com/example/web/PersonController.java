@@ -15,35 +15,28 @@
  */
 package com.example.web;
 
+import com.example.model.PersonUpdate;
 import com.osmerion.omittable.Omittable;
 import org.jspecify.annotations.Nullable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/person")
 public final class PersonController {
 
     @GetMapping
-    public ResponseEntity<String> findByFilter(
-        @RequestParam(name = "name", required = false) Omittable<@Nullable String> name
+    public Mono<ResponseEntity<String>> foo(
+        @RequestParam(name = "required") String required,
+        @RequestParam(name = "omittable") Omittable<@Nullable String> omittable
     ) {
-        return ResponseEntity.ok(name.toString());
+        return Mono.just(ResponseEntity.ok(required + ", " + omittable));
     }
 
-    @GetMapping("/complex-type")
-    public ResponseEntity<String> callComplexType(
-        @RequestParam(name = "myId") Omittable<@Nullable UUID> id
-    ) {
-        if (id.isPresent()) {
-            UUID idValue = id.orElseThrow();
-            String typeName = idValue != null ? idValue.getClass().getSimpleName() : "null";
-            return ResponseEntity.ok(id + " - " + typeName);
-        } else {
-            return ResponseEntity.ok(id.toString());
-        }
+    @PatchMapping
+    public Mono<Void> patchPerson(Mono<PersonUpdate> person) {
+        return Mono.empty();
     }
 
 }

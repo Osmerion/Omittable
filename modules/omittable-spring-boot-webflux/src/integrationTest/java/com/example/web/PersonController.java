@@ -15,7 +15,6 @@
  */
 package com.example.web;
 
-import com.example.model.PersonUpdate;
 import com.osmerion.omittable.Omittable;
 import org.jspecify.annotations.Nullable;
 import org.springframework.http.ResponseEntity;
@@ -32,11 +31,6 @@ public final class PersonController {
         @RequestParam(name = "omittable") Omittable<@Nullable String> omittable
     ) {
         return Mono.just(ResponseEntity.ok(required + ", " + omittable));
-    }
-
-    @PatchMapping
-    public Mono<Void> patchPerson(Mono<PersonUpdate> person) {
-        return Mono.empty();
     }
 
 }

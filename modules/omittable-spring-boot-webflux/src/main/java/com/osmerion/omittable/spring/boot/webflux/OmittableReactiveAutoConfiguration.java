@@ -21,7 +21,9 @@ import com.osmerion.omittable.jackson.OmittableModule;
 import com.osmerion.omittable.spring.core.convert.OmittableConverter;
 import com.osmerion.omittable.spring.webflux.OmittableRequestParamMethodArgumentResolver;
 import com.osmerion.omittable.swagger.v3.core.converter.OmittableModelConverter;
+import io.swagger.v3.core.converter.ModelConverter;
 import org.jspecify.annotations.Nullable;
+import org.springdoc.core.configuration.SpringDocConfiguration;
 import org.springdoc.core.customizers.ParameterCustomizer;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -111,7 +113,7 @@ public class OmittableReactiveAutoConfiguration {
     }
 
     @Configuration
-    @ConditionalOnClass(name = "com.fasterxml.jackson.databind.ObjectMapper")
+    @ConditionalOnClass(ObjectMapper.class)
     public static class OmittableJacksonAutoConfiguration {
 
         @Bean
@@ -123,7 +125,7 @@ public class OmittableReactiveAutoConfiguration {
     }
 
     @Configuration
-    @ConditionalOnClass(name = "io.swagger.v3.core.converter.ModelConverter")
+    @ConditionalOnClass(SpringDocConfiguration.class)
     public static class OmittableSpringdocAutoConfiguration {
 
         @Bean
@@ -144,6 +146,12 @@ public class OmittableReactiveAutoConfiguration {
                 return p;
             };
         }
+
+    }
+
+    @Configuration
+    @ConditionalOnClass(ModelConverter.class)
+    public static class OmittableSwaggerAutoConfiguration {
 
         @Bean
         @ConditionalOnMissingBean

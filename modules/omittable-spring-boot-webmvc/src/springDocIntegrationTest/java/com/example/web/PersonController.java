@@ -15,6 +15,7 @@
  */
 package com.example.web;
 
+import com.example.model.PersonUpdate;
 import com.osmerion.omittable.Omittable;
 import org.jspecify.annotations.Nullable;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,11 @@ public final class PersonController {
         } else {
             return ResponseEntity.ok(id.toString());
         }
+    }
+
+    @PatchMapping
+    public ResponseEntity<PersonUpdate> patchPerson(PersonUpdate person) {
+        return ResponseEntity.ok(person);
     }
 
 }
