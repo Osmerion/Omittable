@@ -1,13 +1,15 @@
-### 0.4.0
+### 0.5.0
 
-_Released 2025 Sep 08_
+_Released 2025 Sep 29_
 
 #### Improvements
 
-- Specified that `Omittable` should not be used for identity-sensitive
-  operations.
+- Implemented an `OmittableConverter` to convert wrapped values.
+    - This is done in a new `omittable-spring-core` artifact.
+    - Both WebFlux and WebMvc support artifacts automatically register the converter.
 
 #### Fixes
 
-- The `com.osmerion.omittable` module now correctly declares that the Kotlin
-  standard library is only required at compile-time.
+- Correctly guard SpringDoc-related autoconfiguration. [[GH-39](https://github.com/Osmerion/Omittable/issues/39)]
+    - This fixes an issue where application startup would fail if Swagger was present on the classpath but SpringDoc was
+      not.
