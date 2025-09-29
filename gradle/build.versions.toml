@@ -21,6 +21,10 @@ junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.re
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 
+# org.mockito - Mockito
+# https://github.com/mockito/mockito
+mockito-core = { module = "org.mockito:mockito-core", version = "5.20.0" }
+
 
 [plugins]
 # com.github.gmazzo.buildconfig - gradle-buildconfig-plugin

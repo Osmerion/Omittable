@@ -26,6 +26,7 @@ jspecify = { module = "org.jspecify:jspecify", version = "1.0.0" }
 
 # org.springframework - Spring Framework
 # https://github.com/spring-projects/spring-framework
+spring-core = { module = "org.springframework:spring-core", version.ref = "spring-framework" }
 spring-webflux = { module = "org.springframework:spring-webflux", version.ref = "spring-framework" }
 spring-webmvc = { module = "org.springframework:spring-webmvc", version.ref = "spring-framework" }
 

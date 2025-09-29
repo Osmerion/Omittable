@@ -35,8 +35,6 @@ publishing {
 }
 
 dependencies {
-    api(project(":omittable", "archives"))
-    api(project(":omittable", "jvmRuntimeElements"))
-    api(libs.jspecify)
+    api(project(":omittable-spring-core"))
     api(libs.spring.webflux)
 }

@@ -18,10 +18,12 @@ package com.osmerion.omittable.spring.boot.webflux;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.osmerion.omittable.Omittable;
 import com.osmerion.omittable.jackson.OmittableModule;
+import com.osmerion.omittable.spring.core.convert.OmittableConverter;
 import com.osmerion.omittable.spring.webflux.OmittableRequestParamMethodArgumentResolver;
 import com.osmerion.omittable.swagger.v3.core.converter.OmittableModelConverter;
 import org.jspecify.annotations.Nullable;
 import org.springdoc.core.customizers.ParameterCustomizer;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -32,8 +34,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.ReactiveAdapter;
 import org.springframework.core.ReactiveAdapterRegistry;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
-import org.springframework.web.reactive.result.method.annotation.ArgumentResolverConfigurer;
+import org.springframework.web.reactive.result.method.HandlerMethodArgumentResolver;
+import org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerAdapter;
+
+import java.lang.reflect.Field;
+import java.util.List;
 
 /**
  * {@link AutoConfiguration Auto-configuration} for Omittable support.
@@ -46,6 +54,8 @@ import org.springframework.web.reactive.result.method.annotation.ArgumentResolve
 @ConditionalOnWebApplication(type =  ConditionalOnWebApplication.Type.REACTIVE)
 public class OmittableReactiveAutoConfiguration {
 
+    public OmittableReactiveAutoConfiguration() {}
+
     @Bean
     public OmittableRequestParamMethodArgumentResolver omittableRequestParamMethodArgumentResolver(
         @Nullable ConfigurableBeanFactory factory,
@@ -55,14 +65,48 @@ public class OmittableReactiveAutoConfiguration {
     }
 
     @Bean
-    public WebFluxConfigurer omittableWebFluxConfigurer(OmittableRequestParamMethodArgumentResolver resolver) {
+    public WebFluxConfigurer omittableWebFluxConfigurer(
+        @Lazy ConversionService conversionService
+    ) {
         return new WebFluxConfigurer() {
 
             @Override
-            public void configureArgumentResolvers(ArgumentResolverConfigurer configurer) {
-                configurer.addCustomResolver(resolver);
+            public void addFormatters(FormatterRegistry registry) {
+                registry.addConverter(new OmittableConverter(conversionService));
             }
 
+        };
+    }
+
+    @Bean
+    public InitializingBean omittableInitializationBean(
+        RequestMappingHandlerAdapter requestMappingHandlerAdapter,
+        OmittableRequestParamMethodArgumentResolver omittableRequestParamMethodArgumentResolver
+    ) {
+        return () -> {
+            // This is a hack to work around the fact that Spring does not provide a way to customize the order
+            Class<RequestMappingHandlerAdapter> requestMappingHandlerAdapterClass = RequestMappingHandlerAdapter.class;
+            Field methodResolverField = requestMappingHandlerAdapterClass.getDeclaredField("methodResolver");
+
+            methodResolverField.setAccessible(true);
+
+            try {
+                Object methodResolver = methodResolverField.get(requestMappingHandlerAdapter);
+                Class<?> controllerMethodResolverClass = methodResolver.getClass();
+                Field requestMappingResolversField = controllerMethodResolverClass.getDeclaredField("requestMappingResolvers");
+
+                requestMappingResolversField.setAccessible(true);
+
+                try {
+                    @SuppressWarnings("unchecked")
+                    List<HandlerMethodArgumentResolver> handlerMethodArgumentResolvers = (List<HandlerMethodArgumentResolver>) requestMappingResolversField.get(methodResolver);
+                    handlerMethodArgumentResolvers.add(0, omittableRequestParamMethodArgumentResolver);
+                } finally {
+                    requestMappingResolversField.setAccessible(false);
+                }
+            } finally {
+                methodResolverField.setAccessible(false);
+            }
         };
     }
 

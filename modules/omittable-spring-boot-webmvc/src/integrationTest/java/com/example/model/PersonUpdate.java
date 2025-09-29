@@ -18,9 +18,11 @@ package com.example.model;
 import com.osmerion.omittable.Omittable;
 import org.jspecify.annotations.Nullable;
 
+import java.util.UUID;
+
 public record PersonUpdate(
     Omittable<String> name,
     String required,
     @Nullable String requiredNullable,
-    Omittable<@Nullable String> nullable
+    Omittable<@Nullable UUID> nullable
 ) {}

@@ -110,6 +110,33 @@ public final class SpringIntegrationTest {
                           }
                         }
                       }
+                    },
+                    "/person/complex-type" : {
+                      "get" : {
+                        "tags" : [ "person-controller" ],
+                        "operationId" : "callComplexType",
+                        "parameters" : [ {
+                          "name" : "myId",
+                          "in" : "query",
+                          "required" : false,
+                          "schema" : {
+                            "type" : "string",
+                            "format" : "uuid"
+                          }
+                        } ],
+                        "responses" : {
+                          "200" : {
+                            "description" : "OK",
+                            "content" : {
+                              "*/*" : {
+                                "schema" : {
+                                  "type" : "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
                     }
                   },
                   "components" : {
@@ -127,7 +154,8 @@ public final class SpringIntegrationTest {
                             "type" : "string"
                           },
                           "nullable" : {
-                            "type" : "string"
+                            "type" : "string",
+                            "format" : "uuid"
                           }
                         },
                         "required" : [ "required", "requiredNullable" ]
@@ -147,6 +175,11 @@ public final class SpringIntegrationTest {
         assertThat(this.testRestTemplate.getForObject("http://localhost:" + port + "/person?name=Karl", String.class))
             .isEqualTo("Omittable[Karl]");
 
+        assertThat(this.testRestTemplate.getForObject("http://localhost:" + port + "/person/complex-type?myId=d3a33656-3fb4-4430-8103-b7c60f018eb4", String.class))
+            .isEqualTo("Omittable[d3a33656-3fb4-4430-8103-b7c60f018eb4] - UUID");
+
+        assertThat(this.testRestTemplate.getForObject("http://localhost:" + port + "/person/complex-type?myId", String.class))
+            .isEqualTo("Omittable[null] - null");
     }
 
 }

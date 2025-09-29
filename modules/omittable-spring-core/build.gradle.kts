@@ -17,6 +17,7 @@ plugins {
     id("com.osmerion.java-base-conventions")
     id("com.osmerion.maven-publish-conventions")
     `java-library`
+    `jvm-test-suite`
 }
 
 java {
@@ -24,17 +25,38 @@ java {
     withJavadocJar()
 }
 
+
+testing {
+    suites {
+        named<JvmTestSuite>("test") {
+            useJUnitJupiter()
+
+            dependencies {
+                implementation(project())
+
+                implementation(platform(libs.spring.boot.dependencies))
+                implementation(buildDeps.mockito.core)
+                implementation(libs.spring.boot.starter.test)
+                implementation(libs.spring.boot.starter.web)
+                implementation(libs.springdoc.openapi.starter.webmvc.ui)
+            }
+        }
+    }
+}
+
 publishing {
     publications.register<MavenPublication>("mavenJava") {
         from(components["java"])
 
         pom {
-            description = "Spring Web MVC support for Omittable types in handler methods."
+            description = "Spring Cores support for Omittable types."
         }
     }
 }
 
 dependencies {
-    api(project(":omittable-spring-core"))
-    api(libs.spring.webmvc)
+    api(project(":omittable", "archives"))
+    api(project(":omittable", "jvmRuntimeElements"))
+    api(libs.jspecify)
+    api(libs.spring.core)
 }

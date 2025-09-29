@@ -18,6 +18,7 @@ package com.example.web;
 import com.example.model.PersonUpdate;
 import com.osmerion.omittable.Omittable;
 import org.jspecify.annotations.Nullable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -26,12 +27,11 @@ import reactor.core.publisher.Mono;
 public final class PersonController {
 
     @GetMapping
-    public Mono<Void> foo(
+    public Mono<ResponseEntity<String>> foo(
         @RequestParam(name = "required") String required,
-        @RequestParam(name = "omittable") @Nullable Omittable<String> omittable,
-        @RequestParam(name = "mono") Mono<Omittable<@Nullable String>> mono
+        @RequestParam(name = "omittable") Omittable<@Nullable String> omittable
     ) {
-        return Mono.empty();
+        return Mono.just(ResponseEntity.ok(required + ", " + omittable));
     }
 
     @PatchMapping

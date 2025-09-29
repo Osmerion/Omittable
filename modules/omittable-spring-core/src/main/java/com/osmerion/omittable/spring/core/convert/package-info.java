@@ -13,28 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    id("com.osmerion.java-base-conventions")
-    id("com.osmerion.maven-publish-conventions")
-    `java-library`
-}
+@NullMarked
+package com.osmerion.omittable.spring.core.convert;
 
-java {
-    withSourcesJar()
-    withJavadocJar()
-}
-
-publishing {
-    publications.register<MavenPublication>("mavenJava") {
-        from(components["java"])
-
-        pom {
-            description = "Spring Web MVC support for Omittable types in handler methods."
-        }
-    }
-}
-
-dependencies {
-    api(project(":omittable-spring-core"))
-    api(libs.spring.webmvc)
-}
+import org.jspecify.annotations.NullMarked;

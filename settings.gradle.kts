@@ -59,6 +59,9 @@ project(":omittable-spring-boot-webflux").projectDir = file("modules/omittable-s
 include(":omittable-spring-boot-webmvc")
 project(":omittable-spring-boot-webmvc").projectDir = file("modules/omittable-spring-boot-webmvc")
 
+include(":omittable-spring-core")
+project(":omittable-spring-core").projectDir = file("modules/omittable-spring-core")
+
 include(":omittable-spring-webflux")
 project(":omittable-spring-webflux").projectDir = file("modules/omittable-spring-webflux")
 

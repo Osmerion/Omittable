@@ -21,6 +21,8 @@ import org.jspecify.annotations.Nullable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/person")
 public final class PersonController {
@@ -30,6 +32,19 @@ public final class PersonController {
         @RequestParam(name = "name", required = false) Omittable<@Nullable String> name
     ) {
         return ResponseEntity.ok(name.toString());
+    }
+
+    @GetMapping("/complex-type")
+    public ResponseEntity<String> callComplexType(
+        @RequestParam(name = "myId") Omittable<@Nullable UUID> id
+    ) {
+        if (id.isPresent()) {
+            UUID idValue = id.orElseThrow();
+            String typeName = idValue != null ? idValue.getClass().getSimpleName() : "null";
+            return ResponseEntity.ok(id + " - " + typeName);
+        } else {
+            return ResponseEntity.ok(id.toString());
+        }
     }
 
     @PatchMapping
