@@ -143,6 +143,88 @@ public final class SpringWebFluxIntegrationTest {
                       }
                     }
                   }
+                }"
+                 but was: "{
+                  "openapi" : "3.1.0",
+                  "servers" : [ {
+                    "url" : "http://localhost:56272",
+                    "description" : "Generated server url"
+                  } ],
+                  "paths" : {
+                    "/person" : {
+                      "get" : {
+                        "tags" : [ "person-controller" ],
+                        "operationId" : "foo",
+                        "parameters" : [ {
+                          "name" : "required",
+                          "in" : "query",
+                          "required" : true,
+                          "schema" : {
+                            "type" : "string"
+                          }
+                        }, {
+                          "name" : "omittable",
+                          "in" : "query",
+                          "required" : false,
+                          "schema" : {
+                            "type" : "string"
+                          }
+                        } ],
+                        "responses" : {
+                          "200" : {
+                            "description" : "OK",
+                            "content" : {
+                              "*/*" : {
+                                "schema" : {
+                                  "type" : "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "patch" : {
+                        "tags" : [ "person-controller" ],
+                        "operationId" : "patchPerson",
+                        "parameters" : [ {
+                          "name" : "arg0",
+                          "in" : "query",
+                          "required" : true,
+                          "schema" : {
+                            "$ref" : "#/components/schemas/PersonUpdate"
+                          }
+                        } ],
+                        "responses" : {
+                          "200" : {
+                            "description" : "OK"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "components" : {
+                    "schemas" : {
+                      "PersonUpdate" : {
+                        "type" : "object",
+                        "properties" : {
+                          "name" : {
+                            "type" : "string"
+                          },
+                          "required" : {
+                            "type" : "string"
+                          },
+                          "requiredNullable" : {
+                            "type" : "string"
+                          },
+                          "nullable" : {
+                            "type" : "string",
+                            "format" : "uuid"
+                          }
+                        },
+                        "required" : [ "required", "requiredNullable" ]
+                      }
+                    }
+                  }
                 }""",
                 this.port
             );
@@ -153,11 +235,11 @@ public final class SpringWebFluxIntegrationTest {
         assertThat(this.testRestTemplate.getForObject("http://localhost:" + port + "/person?required=Karl", String.class))
             .isEqualTo("Karl, Omittable.absent");
 
-        assertThat(this.testRestTemplate.getForObject("http://localhost:" + port + "/person/complex-type?required=Karl&myId=d3a33656-3fb4-4430-8103-b7c60f018eb4", String.class))
-            .isEqualTo("Omittable[d3a33656-3fb4-4430-8103-b7c60f018eb4] - UUID");
+        assertThat(this.testRestTemplate.getForObject("http://localhost:" + port + "/person?required=Karl&omittable=d3a33656-3fb4-4430-8103-b7c60f018eb4", String.class))
+            .isEqualTo("Karl, Omittable[d3a33656-3fb4-4430-8103-b7c60f018eb4]");
 
-        assertThat(this.testRestTemplate.getForObject("http://localhost:" + port + "/person/complex-type?myId", String.class))
-            .isEqualTo("Omittable[null] - null");
+        assertThat(this.testRestTemplate.getForObject("http://localhost:" + port + "/person?required=Karl&omittable", String.class))
+            .isEqualTo("Karl, Omittable[null]");
     }
 
 }
