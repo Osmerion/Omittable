@@ -3,7 +3,7 @@ kotlinx-serialization = "1.9.0"
 spring-boot = "3.5.6"
 spring-framework = "6.2.11"
 springdoc = "2.8.13"
-swagger-core = "2.2.38"
+swagger-core = "2.2.39"
 
 
 [libraries]
