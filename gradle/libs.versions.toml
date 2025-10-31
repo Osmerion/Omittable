@@ -9,7 +9,7 @@ swagger-core = "2.2.40"
 [libraries]
 # com.fasterxml.jackson.core:jackson-databind - Jackson Databind
 # https://github.com/FasterXML/jackson-databind
-jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version = "2.20.0" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version = "2.20.1" }
 
 # io.swagger.core.v3 - Swagger Core
 # https://github.com/swagger-api/swagger-core
