@@ -1,15 +1,14 @@
-### 0.5.0
+### 1.0.0
 
-_Released 2025 Sep 29_
+_Released 2025 Nov 27_
 
-#### Improvements
+#### Overview
 
-- Implemented an `OmittableConverter` to convert wrapped values.
-    - This is done in a new `omittable-spring-core` artifact.
-    - Both WebFlux and WebMvc support artifacts automatically register the converter.
+This version marks the first stable release of the Omittable core library. The API is now officially stable and unlikely
+to change in the future.
 
-#### Fixes
+The modules providing support for integrating [Omittable](https://github.com/Osmerion/Omittable) with third-party
+libraries and frameworks have been split off into their own repositories to simplify development of current and future
+integrations.
 
-- Correctly guard SpringDoc-related autoconfiguration. [[GH-39](https://github.com/Osmerion/Omittable/issues/39)]
-    - This fixes an issue where application startup would fail if Swagger was present on the classpath but SpringDoc was
-      not.
+This repository now only contains the code for the core library.
