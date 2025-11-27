@@ -1,46 +1,9 @@
 [versions]
 kotlinx-serialization = "1.9.0"
-spring-boot = "3.5.8"
-spring-framework = "6.2.14"
-springdoc = "2.8.14"
-swagger-core = "2.2.40"
 
 
 [libraries]
-# com.fasterxml.jackson.core:jackson-databind - Jackson Databind
-# https://github.com/FasterXML/jackson-databind
-jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version = "2.20.1" }
-
-# io.swagger.core.v3 - Swagger Core
-# https://github.com/swagger-api/swagger-core
-swagger-core-jakarta = { module = "io.swagger.core.v3:swagger-core-jakarta", version.ref = "swagger-core" }
-
 # org.jetbrains.kotlinx:kotlinx-serialization-[...] - kotlinx.serialization
 # https://github.com/Kotlin/kotlinx.serialization
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
-
-# org.jspecify - JSpecify
-# https://github.com/jspecify/jspecify
-jspecify = { module = "org.jspecify:jspecify", version = "1.0.0" }
-
-# org.springframework - Spring Framework
-# https://github.com/spring-projects/spring-framework
-spring-core = { module = "org.springframework:spring-core", version.ref = "spring-framework" }
-spring-webflux = { module = "org.springframework:spring-webflux", version.ref = "spring-framework" }
-spring-webmvc = { module = "org.springframework:spring-webmvc", version.ref = "spring-framework" }
-
-# org.springframework.boot - Spring Boot
-# https://github.com/spring-projects/spring-boot
-spring-boot = { module = "org.springframework.boot:spring-boot", version.ref = "spring-boot" }
-spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "spring-boot" }
-spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
-spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
-spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
-spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux", version.ref = "spring-boot" }
-
-# org.springdoc - springdoc
-# https://github.com/springdoc/springdoc-openapi
-springdoc-openapi-starter-common = { module = "org.springdoc:springdoc-openapi-starter-common", version.ref = "springdoc" }
-springdoc-openapi-starter-webflux-ui = { module = "org.springdoc:springdoc-openapi-starter-webflux-ui", version.ref = "springdoc" }
-springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
