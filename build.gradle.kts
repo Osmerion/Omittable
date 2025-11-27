@@ -239,6 +239,10 @@ dokka {
 }
 
 tasks {
+    withType<Jar>().configureEach {
+        archiveBaseName = project.name.lowercase()
+    }
+
     withType<Test>().configureEach {
         useJUnitPlatform()
     }
@@ -277,6 +281,9 @@ publishing {
             }
 
             artifact(emptyJavadocJar)
+
+            // Omittable -> omittable
+            artifactId = artifactId.lowercase()
         }
 
         // See https://github.com/GW2ToolBelt/GW2ChatLinks/issues/18
