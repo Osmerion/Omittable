@@ -8,7 +8,7 @@ kotlin = "2.3.0"
 [libraries]
 # org.assertj - AssertJ
 # https://github.com/assertj/assertj
-assertj-core = { module = "org.assertj:assertj-core", version = "3.27.6" }
+assertj-core = { module = "org.assertj:assertj-core", version = "3.27.7" }
 
 # org.jetbrains.kotlin - Kotlin
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
