@@ -128,7 +128,7 @@ jobs:
 
       - name: Merge
         id: merge
-        uses: TheMrMilchmann/merge-tarballs@master
+        uses: TheMrMilchmann/merge-tarballs@0d5420b2b46a41cb9cf7a9711a6ae2b98dcfd65a # v1.0.0
         with:
           glob: artifacts/**
           archive: ./artifact-bundle.tgz
