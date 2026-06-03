@@ -2,7 +2,7 @@
 binary-compatibility-validator = "0.18.1"
 dokka = "2.2.0"
 junit = "6.1.0"
-kotlin = "2.3.21"
+kotlin = "2.4.0"
 
 
 [libraries]
