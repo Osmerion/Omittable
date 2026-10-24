@@ -1,8 +1,11 @@
 name: Dependency Submission
+
 on:
   push:
     branches:
-      - master
+      - "main"
+      - "master"
+      - "release/**"
 
 permissions:
   contents: write
