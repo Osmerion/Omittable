@@ -55,8 +55,8 @@ signing {
     // Only require signing when publishing to a non-local maven repository
     setRequired { gradle.taskGraph.allTasks.any { it is PublishToMavenRepository } }
 
-    val signingKey: String? by project
-    val signingPassword: String? by project
+    val signingKey: String? = providers.gradleProperty("signingKey").orNull
+    val signingPassword: String? = providers.gradleProperty("signingPassword").orNull
     useInMemoryPgpKeys(signingKey, signingPassword)
 
     sign(publishing.publications)
