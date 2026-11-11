@@ -1,5 +1,5 @@
 [versions]
-kotlinx-serialization = "1.12.0"
+kotlinx-serialization = "1.13.0"
 
 
 [libraries]
